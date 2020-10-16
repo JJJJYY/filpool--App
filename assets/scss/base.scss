@@ -1,0 +1,99 @@
+$main-color: #e49c3a;
+$nav-bar-color: #f8fafd;
+$h1-color: #24375E;
+$h2-color: #575c62;
+$h3-color: #86929d;
+$divider-color: #eee;
+$content-backgroun-color: #fff;
+$background-color: #EBEAEF;
+$pageHeight: calc(100vh - 54px);
+$headHeight: 46px;
+
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+html,body{
+  /*overflow: hidden;*/
+}
+.btn-gradient {
+    background: linear-gradient(90deg,rgba(241,138,45,1) 0%,rgba(252,177,80,1) 100%);
+    border: 0;
+    color: white;
+}
+
+.gradient {
+  background: linear-gradient(90deg,rgba(241,138,45,1) 0%,rgba(252,177,80,1) 100%);
+}
+
+input{
+  border: 0;
+  outline: none;
+  line-height: normal;
+}
+p,ul,h3{
+  margin: 0;
+  padding: 0;
+}
+.submit {
+  background: linear-gradient(90deg, rgb(241, 138, 45) 0%,rgba(252,177,80,1) 100%);
+  align-self: center;
+  width: 80%;
+  height: 44px;
+  border-radius: 22px;
+  color: #fff;
+  font-size: 15px;
+  margin-top: 80px;
+  border: 0;
+  &:disabled {
+    background: #ddd;
+  }
+}
+.flex-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-container{
+  height: calc(100vh - 62px);
+  padding-bottom: 50px;
+  box-sizing: border-box;
+  overflow: auto;
+}
+.mContainer{
+  overflow: initial!important;
+}
+.nowarp{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+pre{
+  white-space: initial;
+}
+*:not(input) {
+  user-select: none;
+}
+/*iconfont样式配置*/
+@font-face {
+  font-family: 'iconfont';
+  src: url('~@/assets/font/iconfont.eot');
+  src: url('~@/assets/font/iconfont.eot?#iefix') format('embedded-opentype'),
+  url('~@/assets/font/iconfont.woff2') format('woff2'),
+  url('~@/assets/font/iconfont.woff') format('woff'),
+  url('~@/assets/font/iconfont.ttf') format('truetype'),
+  url('~@/assets/font/iconfont.svg#iconfont') format('svg');
+}
+.iconfont {
+  font-family: "iconfont"!important;
+  font-size: 12px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+}
