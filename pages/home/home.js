@@ -1,6 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import { View } from 'react-native';
+// home页轮播图 
 import HeaderBanner from './components/banner1';
+// 导入公告栏
+import Notice from './components/notice';
 export default class Home extends React.Component {
     constructor(props) {
         super(props);
@@ -11,6 +14,7 @@ export default class Home extends React.Component {
             <View>
                 {/* home页轮播图 */}
                 <HeaderBanner />
+                <Notice />
             </View>
         )
     }
