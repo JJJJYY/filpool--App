@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Image, Dimensions, Text } from 'react-native';
+import { View, StyleSheet, Image, Dimensions, Text, ActivityIndicator } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { getGeneralBannerApi } from '../../../request/api/homeApi';
 const { width } = Dimensions.get('window');
@@ -22,21 +22,21 @@ export default class HeaderBanner extends React.Component {
     }
     render() {
 
-        const arr = [1, 2, 3]
         return (
-            <View style={styles.wrapper}>
-                <Swiper showsButtons={false}>
-                    {
-                        this.state.success ? this.state.bannerData.map(item => {
-                            // console.log(item)
-                            return <View style={styles.slide} key={item.id}>
-                                <Image resizeMode='stretch' style={styles.image} source={{ uri: item.image }} />
-                            </View>
-                        }) : <View>
-                                <Text>加载异常</Text>
-                            </View>
-                    }
-                </Swiper>
+            <View style={styles.wrapper} >
+                {
+                    this.state.success ?
+                        <Swiper showsButtons={false} autoplay>
+                            {
+                                this.state.bannerData.map(item => {
+                                    console.log(item)
+                                    return <View style={styles.slide} key={item.id}>
+                                        <Image style={styles.image} source={{ uri: item.image }} />
+                                    </View>
+                                })
+                            }
+                        </Swiper> : <ActivityIndicator size="large" color="#00ff00" />
+                }
             </View>
         )
     }
@@ -54,5 +54,6 @@ const styles = StyleSheet.create({
     image: {
         width: width,
         height: 150,
+        resizeMode: 'stretch', //图片填满容器
     }
 })
