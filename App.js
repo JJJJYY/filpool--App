@@ -8,7 +8,7 @@
 
 import React from 'react';
 import { View, Text, } from 'react-native';
-import Navigation from './routerNavigation/navigation';
+import Navigation from './src/routerNavigation/navigation';
 export default class App extends React.Component {
   render() {
     return (
