@@ -21,22 +21,22 @@ export default class HeaderBanner extends React.Component {
         })
     }
     render() {
-
         return (
-            <View style={styles.wrapper} >
-                {
-                    this.state.success ?
-                        <Swiper showsButtons={false} autoplay>
-                            {
-                                this.state.bannerData.map(item => {
-                                    console.log(item)
-                                    return <View style={styles.slide} key={item.id}>
-                                        <Image style={styles.image} source={{ uri: item.image }} />
-                                    </View>
-                                })
-                            }
-                        </Swiper> : <ActivityIndicator size="large" color="#00ff00" />
-                }
+            <View>
+                <View style={styles.wrapper} >
+                    {
+                        this.state.success ?
+                            <Swiper showsButtons={false} height={150} autoplay>
+                                {
+                                    this.state.bannerData.map(item => {
+                                        return <View style={styles.slide} key={item.id}>
+                                            <Image style={styles.image} source={{ uri: item.image }} />
+                                        </View>
+                                    })
+                                }
+                            </Swiper> : <ActivityIndicator size="large" color="#00ff00" />
+                    }
+                </View>
             </View>
         )
     }
@@ -44,16 +44,17 @@ export default class HeaderBanner extends React.Component {
 
 const styles = StyleSheet.create({
     wrapper: {
-        height: 150
+        height: 150,
     },
     slide: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        borderRadius: 8,
     },
     image: {
         width: width,
         height: 150,
         resizeMode: 'stretch', //图片填满容器
-    }
+    },
 })

@@ -2,31 +2,55 @@ import React from 'react';
 import { View, StyleSheet, Image, Dimensions, Text, ActivityIndicator } from 'react-native';
 import Swiper from 'react-native-swiper';
 import CXIcon from '../../../icon/CXIcon';
+import { getNoticeListApi } from '../../../request/api/homeApi'
 // const { width } = Dimensions.get('window');
 export default class Notice extends React.Component {
     constructor() {
         super();
-        this.state = {}
+        this.state = {
+            notices: [],
+            loading: false
+        }
     }
     componentDidMount() {
-
+        const getData = {
+            page: 1,
+            count: 10,
+        };
+        getNoticeListApi(getData).then(res => {
+            console.log(res)
+            this.setState({
+                notices: res.data,
+                loading: true
+            })
+        })
     }
     render() {
+        const { loading, notices } = this.state;
+        // console.log('loading', notices)
         return (
             <View>
                 <View style={styles.centent} >
                     <CXIcon name='tongzhi' size={15} color='#000'></CXIcon>
-                    <Swiper style={styles.wrapper} showsButtons={true}>
-                        <View style={styles.slide1}>
-                            <Text style={styles.text}>Hello Swiper</Text>
-                        </View>
-                        <View style={styles.slide2}>
-                            <Text style={styles.text}>Beautiful</Text>
-                        </View>
-                        <View style={styles.slide3}>
-                            <Text style={styles.text}>And simple</Text>
-                        </View>
-                    </Swiper>
+                    {
+                        loading ? <Swiper style={styles.wrapper} showsPagination={false} height={20} horizontal={false} autoplay>
+                            {
+                                notices.map(item => {
+                                    console.log(item)
+                                    return <View key={item.id} style={styles.slide}>
+                                        <Text style={styles.text}>{item.title}</Text>
+                                    </View>
+                                })
+                            }
+                        </Swiper> : <ActivityIndicator size="small" color="#00ff00" />
+                    }
+
+                    <View>
+                        <Text style={styles.moreText}>查看更多 &gt;</Text>
+                    </View>
+                </View>
+                <View>
+                    <Text>asdasdads</Text>
                 </View>
             </View>
         )
@@ -35,33 +59,23 @@ export default class Notice extends React.Component {
 
 const styles = StyleSheet.create({
     centent: {
-        backgroundColor: 'red',
-        flexDirection: "row"
-    },
-    wrapper: {
-        height: 20
-    },
-    slide1: {
-        flex: 1,
-        justifyContent: 'center',
+        flexDirection: "row",
         alignItems: 'center',
-        backgroundColor: '#9DD6EB'
     },
-    slide2: {
+    slide: {
         flex: 1,
+        marginLeft: 10,
         justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#97CAE5'
+        // alignItems: 'center',
+        backgroundColor: 'transparent'
     },
-    slide3: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#92BBD9'
-    },
+
     text: {
-        color: '#fff',
-        fontSize: 30,
-        fontWeight: 'bold'
+        color: '#666666',
+        fontSize: 12,
+    },
+    moreText: {
+        color: '#666666',
+        fontSize: 12,
     }
 })

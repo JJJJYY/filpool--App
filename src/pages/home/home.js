@@ -11,7 +11,7 @@ export default class Home extends React.Component {
     }
     render() {
         return (
-            <View>
+            <View style={{ padding: 9 }}>
                 {/* home页轮播图 */}
                 <HeaderBanner />
                 <Notice />
