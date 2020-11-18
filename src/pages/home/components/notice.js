@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Image, Dimensions, Text, ActivityIndicator } from 'react-native';
 import Swiper from 'react-native-swiper';
-import CXIcon from '../../../icon/CXIcon';
+// import CXIcon from '../../../icon/CXIcon';
 import { getNoticeListApi } from '../../../request/api/homeApi'
 // const { width } = Dimensions.get('window');
 export default class Notice extends React.Component {
@@ -30,7 +30,7 @@ export default class Notice extends React.Component {
         return (
             <View>
                 <View style={styles.centent} >
-                    <CXIcon name='tongzhi' size={15} color='#000'></CXIcon>
+                    {/* <CXIcon name='tongzhi' size={15} color='#000'></CXIcon> */}
                     {
                         loading ? <Swiper style={styles.wrapper} showsPagination={false} height={20} horizontal={false} autoplay>
                             {
