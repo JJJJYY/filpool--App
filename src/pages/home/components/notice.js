@@ -18,7 +18,6 @@ export default class Notice extends React.Component {
             count: 10,
         };
         getNoticeListApi(getData).then(res => {
-            console.log(res)
             this.setState({
                 notices: res.data,
                 loading: true
@@ -36,9 +35,8 @@ export default class Notice extends React.Component {
                         loading ? <Swiper style={styles.wrapper} showsPagination={false} height={20} horizontal={false} autoplay>
                             {
                                 notices.map(item => {
-                                    console.log(item)
                                     return <View key={item.id} style={styles.slide}>
-                                        <Text style={styles.text}>{item.title}</Text>
+                                        <Text numberOfLines={1} style={styles.text}>{item.title}</Text>
                                     </View>
                                 })
                             }
@@ -49,9 +47,6 @@ export default class Notice extends React.Component {
                         <Text style={styles.moreText}>查看更多 &gt;</Text>
                     </View>
                 </View>
-                <View>
-                    <Text>asdasdads</Text>
-                </View>
             </View>
         )
     }
@@ -61,12 +56,12 @@ const styles = StyleSheet.create({
     centent: {
         flexDirection: "row",
         alignItems: 'center',
+        marginTop: 5
     },
     slide: {
         flex: 1,
         marginLeft: 10,
         justifyContent: 'center',
-        // alignItems: 'center',
         backgroundColor: 'transparent'
     },
 
