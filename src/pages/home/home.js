@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Alert, TouchableOpacity, ScrollView } from 'react-native';
 // home页轮播图 
 import HeaderBanner from './components/banner1';
 // 导入公告栏
@@ -37,27 +37,30 @@ export default class Home extends React.Component {
     render() {
         const { guideItems } = this.state;
         return (
-            <View style={{ padding: 9 }}>
-                {/* home页轮播图 */}
-                <HeaderBanner />
-                <Notice />
-                {/* 引导 */}
-                {
-                    console.log(guideItems)
-                }
-                <View style={styles.guideItem}>
-                    {
-                        guideItems.map(val => {
-                            return <View style={styles.guideItemSelect}>
-                                <Image style={styles.images} source={val.icon}></Image>
-                                <Text style={styles.guideItemText} >{val.title}</Text>
-                            </View>
-                        })
-                    }
+            <ScrollView>
+                <View style={{ padding: 9 }}>
+                    {/* home页轮播图 */}
+                    <HeaderBanner />
+                    <Notice />
+                    {/* 引导 */}
+                    <View style={styles.guideItem}>
+                        {
+                            guideItems.map((val, index) => {
+                                return (
+                                    <TouchableOpacity onPress={() => { Alert.alert('You tapped the button!') }} key={index} style={styles.guideItemSelect}>
+                                        <View >
+                                            <Image style={styles.images} source={val.icon}></Image>
+                                            <Text style={styles.guideItemText} >{val.title}</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                )
+                            })
+                        }
+                    </View>
+                    {/* 存储空间 */}
+                    <Storage />
                 </View>
-                {/* 存储空间 */}
-                <Storage />
-            </View>
+            </ScrollView>
         )
     }
 }
