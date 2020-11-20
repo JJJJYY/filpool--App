@@ -10,3 +10,7 @@ export function getGeneralBannerApi() {
 export function getNoticeListApi(params) {
     return getRequest('App.Announcement.List', params);
 }
+// 存储空间
+export function getPoolInfoApi(data, fun) {
+    return getRequest('App.PoolInfo.Info', data, fun);
+}
