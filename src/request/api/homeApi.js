@@ -14,3 +14,8 @@ export function getNoticeListApi(params) {
 export function getPoolInfoApi(data, fun) {
     return getRequest('App.PoolInfo.Info', data, fun);
 }
+
+// 官方视频
+export function getVideoListApi() {
+    return getRequest('App.LinksInfo.Advertisement');
+}

@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableWithoutFeedback } from 'react-native';
 import { getPoolInfoApi } from '../../../request/api/homeApi'
+
+// 差进度条
 export default class Storage extends React.Component {
     constructor() {
         super()

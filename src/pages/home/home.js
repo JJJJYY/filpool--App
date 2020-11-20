@@ -1,11 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, Alert, TouchableOpacity, ScrollView } from 'react-native';
+import Video from 'react-native-video';
+import { getVideoListApi } from '../../request/api/homeApi'
 // home页轮播图 
 import HeaderBanner from './components/banner1';
 // 导入公告栏
 import Notice from './components/notice';
 // 存储空间
 import Storage from './components/storage'
+// 社区介绍
+import Community from './components/community'
 export default class Home extends React.Component {
     constructor(props) {
         super(props);
@@ -32,10 +36,33 @@ export default class Home extends React.Component {
                     // router: "/helpCenter"
                 }
             ],
+            videos: []
         }
     }
+
+    componentDidMount() {
+        this.videoList()
+    }
+    videoList() {
+        getVideoListApi().then(res => {
+            console.log(res)
+            this.setState({
+                videos: res.data.filter(item => {
+                    return item.type === 1;
+                })
+            })
+        });
+    }
+
+    _onLayout(event) {
+        // 外层盒子宽度
+        let { width } = event.nativeEvent.layout;
+        this.setState({
+            barWidth: width,
+        })
+    }
     render() {
-        const { guideItems } = this.state;
+        const { guideItems, barWidth } = this.state;
         return (
             <ScrollView>
                 <View style={{ padding: 9 }}>
@@ -59,6 +86,37 @@ export default class Home extends React.Component {
                     </View>
                     {/* 存储空间 */}
                     <Storage />
+                    {/* 社区介绍 */}
+                    <Text style={{ marginTop: 20, textAlign: 'center', fontSize: 18, fontWeight: 'bold' }}>IPFS社区介绍</Text>
+                    <View style={styles.videoCentent} onLayout={(e) => { this._onLayout(e) }} >
+                        {
+                            this.state.videos.map((item, index) => {
+                                return <Video source={{ uri: item.content }}
+                                    key={index}
+                                    ref={(ref) => {
+                                    }}
+                                    audioOnly={true}
+                                    naturalSize={
+                                        height = 300,
+                                        width = barWidth
+                                    }
+                                    rate={1.0}
+                                    volume={1.0}
+                                    muted={false}
+                                    resizeMode={'cover'} // 均匀缩放视频（保持视频的宽高比），使图像的尺寸（宽度和高度）等于或大于视图的相应尺寸（减去填充） 设置了可以生效宽高
+                                    playWhenInactive={false}
+                                    playInBackground={false}
+                                    ignoreSilentSwitch={'ignore'}
+                                    progressUpdateInterval={250.0}
+                                    onBuffer={this.onBuffer}
+                                    onError={this.videoError}
+                                    onProgress={this.onProgress}
+                                    style={[styles.backgroundVideo, { width: barWidth, height: 150 }]}
+                                />
+                            })
+                        }
+                    </View>
+                    <Community />
                 </View>
             </ScrollView>
         )
@@ -85,5 +143,12 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: '#333333FF',
         fontWeight: '500'
-    }
+    },
+    videoCentent: {
+        marginTop: 15,
+    },
+    backgroundVideo: {
+        borderRadius: 8,
+        overflow: 'hidden',
+    },
 })

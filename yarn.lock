@@ -2511,6 +2511,11 @@ ee-first@1.1.1:
   resolved "https://registry.npm.taobao.org/ee-first/download/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
+eme-encryption-scheme-polyfill@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npm.taobao.org/eme-encryption-scheme-polyfill/download/eme-encryption-scheme-polyfill-2.0.1.tgz#b080b01bffd74c75c9cf8044c1cabedf3b83954f"
+  integrity sha1-sICwG//XTHXJz4BEwcq+3zuDlU8=
+
 emoji-regex@^7.0.1:
   version "7.0.3"
   resolved "https://registry.npm.taobao.org/emoji-regex/download/emoji-regex-7.0.3.tgz?cache=0&sync_timestamp=1602593628405&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Femoji-regex%2Fdownload%2Femoji-regex-7.0.3.tgz#933a04052860c85e83c122479c4748a8e4c72156"
@@ -4435,6 +4440,11 @@ jsx-ast-utils@^2.2.3:
     array-includes "^3.1.1"
     object.assign "^4.1.0"
 
+keymirror@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npm.taobao.org/keymirror/download/keymirror-0.1.1.tgz#918889ea13f8d0a42e7c557250eee713adc95c35"
+  integrity sha1-kYiJ6hP40KQufFVyUO7nE63JXDU=
+
 kind-of@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npm.taobao.org/kind-of/download/kind-of-1.1.0.tgz#140a3d2d41a36d2efcfa9377b62c24f8495a5c44"
@@ -5806,6 +5816,15 @@ react-native-vector-icons@^7.1.0:
     prop-types "^15.7.2"
     yargs "^15.0.2"
 
+react-native-video@^5.1.0-alpha8:
+  version "5.1.0-alpha8"
+  resolved "https://registry.npm.taobao.org/react-native-video/download/react-native-video-5.1.0-alpha8.tgz?cache=0&sync_timestamp=1597893689642&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-native-video%2Fdownload%2Freact-native-video-5.1.0-alpha8.tgz#f0cb4cb2d74154b7916e68bef0f9b9cdcfe5f568"
+  integrity sha1-8MtMstdBVLeRbmi+8Pm5zc/l9Wg=
+  dependencies:
+    keymirror "^0.1.1"
+    prop-types "^15.7.2"
+    shaka-player "^2.5.9"
+
 react-native@0.63.3:
   version "0.63.3"
   resolved "https://registry.npm.taobao.org/react-native/download/react-native-0.63.3.tgz#4a7f6540e049ff41810887bbd1125abc4672f3bf"
@@ -6306,6 +6325,13 @@ setprototypeof@1.1.1:
   version "1.1.1"
   resolved "https://registry.npm.taobao.org/setprototypeof/download/setprototypeof-1.1.1.tgz#7e95acb24aa92f5885e0abef5ba131330d4ae683"
   integrity sha1-fpWsskqpL1iF4KvvW6ExMw1K5oM=
+
+shaka-player@^2.5.9:
+  version "2.5.18"
+  resolved "https://registry.npm.taobao.org/shaka-player/download/shaka-player-2.5.18.tgz#5382d0b879ade01dc7cea5115d311d2168b7428a"
+  integrity sha1-U4LQuHmt4B3HzqURXTEdIWi3Qoo=
+  dependencies:
+    eme-encryption-scheme-polyfill "^2.0.1"
 
 shebang-command@^1.2.0:
   version "1.2.0"
