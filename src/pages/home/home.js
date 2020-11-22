@@ -10,6 +10,7 @@ import Notice from './components/notice';
 import Storage from './components/storage'
 // 社区介绍
 import Community from './components/community'
+import Partners from './components/partners'
 export default class Home extends React.Component {
     constructor(props) {
         super(props);
@@ -117,6 +118,7 @@ export default class Home extends React.Component {
                         }
                     </View>
                     <Community />
+                    <Partners />
                 </View>
             </ScrollView>
         )
