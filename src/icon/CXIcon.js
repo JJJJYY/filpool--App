@@ -1,12 +1,12 @@
-import createIconSet from 'react-native-vector-icons/lib/create-icon-set';
+import {createIconSet} from 'react-native-vector-icons';
 import glyphMap from './iconfont.json';
 
-const iconSet = createIconSet(glyphMap, 'CXIcon', 'iconfont.ttf');
+const Myicon = createIconSet(glyphMap, 'iconfont', 'iconfont.ttf'); // 第二个参数啥ttf文件的名字
 
-export default iconSet;
+export default Myicon;
 
-export const Button = iconSet.Button;
-export const TabBarItem = iconSet.TabBarItem;
-export const TabBarItemIOS = iconSet.TabBarItemIOS;
-export const ToolbarAndroid = iconSet.ToolbarAndroid;
-export const getImageSource = iconSet.getImageSource;
+export const Button = Myicon.Button;
+export const TabBarItem = Myicon.TabBarItem;
+export const TabBarItemIOS = Myicon.TabBarItemIOS;
+export const ToolbarAndroid = Myicon.ToolbarAndroid;
+export const getImageSource = Myicon.getImageSource;
