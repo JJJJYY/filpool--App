@@ -46,7 +46,6 @@ export default class Home extends React.Component {
     }
     videoList() {
         getVideoListApi().then(res => {
-            console.log(res)
             this.setState({
                 videos: res.data.filter(item => {
                     return item.type === 1;

@@ -19,3 +19,7 @@ export function getPoolInfoApi(data, fun) {
 export function getVideoListApi() {
     return getRequest('App.LinksInfo.Advertisement');
 }
+// 合作伙伴
+export function getPartnerListApi() {
+    return getRequest('App.PartnerInfo.List');
+}
