@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView ,TouchableWithoutFeedback} from 'react-native';
 import { List } from '@ant-design/react-native';
 const Item = List.Item;
 export default class Mine extends React.Component {
@@ -39,8 +39,12 @@ export default class Mine extends React.Component {
                     <View style={styles.storageTotalCentent} onLayout={(e) => { this._onLayout(e) }}>
                         <View style={[styles.storageTotal, { width }]}>
                             <View style={styles.totalHeader}>
+                                <TouchableWithoutFeedback onPress={() => {console.log('1111')}}>
                                 <Text style={styles.totalHeaderText}>一期</Text>
+                                </TouchableWithoutFeedback>
+                                <TouchableWithoutFeedback onPress={() => {console.log('1111')}}>
                                 <Text style={styles.totalHeaderText}>二期</Text>
+                                </TouchableWithoutFeedback>
                             </View>
                             <View style={styles.storageTotalPadding}>
                                 <View style={styles.storageTotalBox}>
@@ -170,7 +174,8 @@ const styles = StyleSheet.create({
         height: 110,
         backgroundColor: '#f0ac25FF',
         borderBottomRightRadius: 30,
-        borderBottomLeftRadius: 30
+        borderBottomLeftRadius: 30,
+        marginBottom: -30
     },
     headerUser: {
         marginTop: 20,
@@ -184,7 +189,7 @@ const styles = StyleSheet.create({
     storageTotal: {
         backgroundColor: '#fff',
         borderRadius: 8,
-        marginTop: -30,
+        // marginTop: -30,
         marginLeft: 'auto',
         marginRight: 'auto'
     },
