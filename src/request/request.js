@@ -11,6 +11,25 @@ const getFetch = url => new Promise((resolve, reject) => {
         }).catch(err => reject(err))
 })
 
+const PostFetch = (url, jsondata) => new Promise((resolve, reject) => {
+    fetch(url, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(jsondata)
+            // cancelToken: new CancelToken(function executor(c) {
+            //   _this.cancelAjax = c
+            // })
+        })
+        .then((response) => response.json())
+        .then(response => {
+            resolve(response)
+        }).catch(err => reject(err))
+});
+
+
 export const getRequest = (api, params) => {
     let url = `${serviceURL}/public/`;
     params = {
@@ -29,3 +48,17 @@ export const getRequest = (api, params) => {
     }
     return getFetch(url);
 }
+
+// post请求
+export const postRequest = (api, data, baseUrl = null) => {
+    if (baseUrl) {
+        return PostFetch(baseUrl, data);
+    } else {
+        let url = `${serviceURL}/public/`;
+        data = {
+            s: api,
+            ...data,
+        }
+        return PostFetch(url, data);
+    }
+};

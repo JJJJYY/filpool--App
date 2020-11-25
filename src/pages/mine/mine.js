@@ -1,12 +1,19 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView ,TouchableWithoutFeedback} from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import { List } from '@ant-design/react-native';
+// import { getMyPower } from '../../request/api/userInfoApi'
 const Item = List.Item;
 export default class Mine extends React.Component {
     constructor() {
         super()
         this.state = {
         }
+    }
+
+    componentDidMount() {
+        // getMyPower({ number: 1 }).then(res => {
+        //     console.log(res)
+        // })
     }
 
     _onLayout(event) {
@@ -39,11 +46,11 @@ export default class Mine extends React.Component {
                     <View style={styles.storageTotalCentent} onLayout={(e) => { this._onLayout(e) }}>
                         <View style={[styles.storageTotal, { width }]}>
                             <View style={styles.totalHeader}>
-                                <TouchableWithoutFeedback onPress={() => {console.log('1111')}}>
-                                <Text style={styles.totalHeaderText}>一期</Text>
+                                <TouchableWithoutFeedback onPress={() => { console.log('1111') }}>
+                                    <Text style={styles.totalHeaderText}>一期</Text>
                                 </TouchableWithoutFeedback>
-                                <TouchableWithoutFeedback onPress={() => {console.log('1111')}}>
-                                <Text style={styles.totalHeaderText}>二期</Text>
+                                <TouchableWithoutFeedback onPress={() => { console.log('1111') }}>
+                                    <Text style={styles.totalHeaderText}>二期</Text>
                                 </TouchableWithoutFeedback>
                             </View>
                             <View style={styles.storageTotalPadding}>
