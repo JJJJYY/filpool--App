@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, View, Text, StyleSheet, Image, TextInput } from 'react-native';
+import { getLoginApi } from '../../request/api/loginApi'
 export default class Login extends React.Component {
     constructor() {
         super()
@@ -12,6 +13,14 @@ export default class Login extends React.Component {
     componentDidMount() {
         console.log(this.props)
     }
+
+
+    login() {
+        getLoginApi().then(res => {
+            console.log(res)
+        })
+    }
+
     onChangeText(text) {
         this.setState({
             account: text
