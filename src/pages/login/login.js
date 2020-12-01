@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, View, Text, StyleSheet, Image, TextInput } from 'react-native';
+import { Button, View, Text, StyleSheet, Image, TextInput, Alert, TouchableOpacity, Dimensions } from 'react-native';
 import { getLoginApi } from '../../request/api/loginApi'
+const { width } = Dimensions.get('window');
 export default class Login extends React.Component {
     constructor() {
         super()
@@ -33,9 +34,7 @@ export default class Login extends React.Component {
     }
     render() {
         return (
-            <View style={{
-                backgroundColor: '#FFF', flex: 1, flexDirection: 'column',
-            }}>
+            <View style={styles.loginCentent}>
                 <View style={styles.loginPadding}>
                     <View style={styles.loginFlexText}>
                         <Text style={styles.loginTextTitle}>取消</Text>
@@ -63,7 +62,20 @@ export default class Login extends React.Component {
                         placeholderTextColor='#C6C6C6FF'
                     >
                     </TextInput>
+                    <Text style={{ marginTop: 18 }}>忘记密码？</Text>
+                    <View style={{ flexDirection: 'row-reverse' }}>
+                        <TouchableOpacity onPress={() => Alert.alert('Button with adjusted color pressed')}>
+                            <View style={styles.button}>
+                                <Text style={{ color: '#fff' }}>登录</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
+
+                <Image
+                    style={styles.tinybanner}
+                    source={require('../../assets/img/login/banner.png')}
+                />
             </View>
         )
     }
@@ -72,6 +84,12 @@ export default class Login extends React.Component {
 
 
 const styles = StyleSheet.create({
+    loginCentent: {
+        backgroundColor: '#FFF',
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between'
+    },
     loginPadding: {
         padding: 20,
         marginTop: 30
@@ -84,5 +102,18 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#666666FF',
         fontWeight: '400'
+    },
+    button: {
+        alignItems: "center",
+        width: 125,
+        backgroundColor: "#F0AC25FF",
+        padding: 15,
+        borderRadius: 15,
+        marginTop: 44,
+    },
+    tinybanner: {
+        height: 150,
+        width: width,
+        resizeMode: 'stretch',
     }
 })
