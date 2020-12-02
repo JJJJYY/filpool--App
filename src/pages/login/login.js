@@ -1,25 +1,67 @@
 import React from 'react';
-import { Button, View, Text, StyleSheet, Image, TextInput, Alert, TouchableOpacity, Dimensions } from 'react-native';
+import { ActivityIndicator, View, Text, StyleSheet, Image, TextInput, Alert, TouchableOpacity, Dimensions } from 'react-native';
+import { Toast } from '@ant-design/react-native';
 import { getLoginApi } from '../../request/api/loginApi'
 const { width } = Dimensions.get('window');
+import md5 from "md5";
+import store from '../../store';
 export default class Login extends React.Component {
     constructor() {
         super()
         this.state = {
             account: '',
-            password: ''
+            password: '',
+            loading: false
         }
     }
 
     componentDidMount() {
-        console.log(this.props)
+        // console.log(store)
+        // store.load({
+        //     key: 'user',
+        // }).then(res => {
+        //     console.log(res)
+        // }).catch(err => {
+        //     console.warn(err)
+        // })
+        // store.remove({
+        //     key: 'userState',
+        // });
     }
 
 
     login() {
-        getLoginApi().then(res => {
-            console.log(res)
+        const postData = {
+            account: this.state.account,
+            password: md5(this.state.password)
+        }
+        getLoginApi(postData).then(res => {
+            if (res.ret === 200) {
+                this.props.navigation.navigate('home')
+                store.load({
+                    key: 'user',
+                }).then(res => {
+                })
+                Toast.success('登录成功');
+            } else {
+                Toast.info(res.msg);
+            }
+            this.setState({
+                loading: false
+            })
         })
+    }
+
+
+    loginHandle() {
+        if (this.state.account === "" || this.state.password === "") {
+            Toast.info("请输入账号密码");
+            return;
+        }
+        this.setState({
+            loading: true
+        })
+        this.login()
     }
 
     onChangeText(text) {
@@ -33,6 +75,7 @@ export default class Login extends React.Component {
         })
     }
     render() {
+        const { loading } = this.state;
         return (
             <View style={styles.loginCentent}>
                 <View style={styles.loginPadding}>
@@ -64,9 +107,17 @@ export default class Login extends React.Component {
                     </TextInput>
                     <Text style={{ marginTop: 18 }}>忘记密码？</Text>
                     <View style={{ flexDirection: 'row-reverse' }}>
-                        <TouchableOpacity onPress={() => Alert.alert('Button with adjusted color pressed')}>
+                        <TouchableOpacity disabled={loading} onPress={() => this.loginHandle()}>
                             <View style={styles.button}>
-                                <Text style={{ color: '#fff' }}>登录</Text>
+                                {
+                                    !loading ?
+                                        <Text style={{ color: '#fff' }}>登录</Text>
+                                        :
+                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                            <Text style={{ color: '#fff' }}>登录中</Text><ActivityIndicator size="small" color="#fff" />
+                                        </View>
+                                }
+
                             </View>
                         </TouchableOpacity>
                     </View>

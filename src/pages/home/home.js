@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, Alert, TouchableOpacity, ScrollView } from 'react-native';
 import Video from 'react-native-video';
 import { getVideoListApi } from '../../request/api/homeApi'
+import store from '../../store'
 // home页轮播图 
 import HeaderBanner from './components/banner1';
 // 导入公告栏
@@ -42,6 +43,7 @@ export default class Home extends React.Component {
     }
 
     componentDidMount() {
+        console.log('home ', store)
         this.videoList()
     }
     videoList() {
