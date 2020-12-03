@@ -11,6 +11,7 @@ export default class Mine extends React.Component {
     }
 
     componentDidMount() {
+        console.log(this.props)
         // getMyPower({ number: 1 }).then(res => {
         //     console.log(res)
         // })
@@ -126,11 +127,11 @@ export default class Mine extends React.Component {
                                         style={{ width: 29, height: 29, marginRight: 5 }}
                                     />
                                 }
-                                style={{ height: 50 }}
+
                                 extra="我的邀请码：FCD5F7"
                                 arrow="horizontal"
                                 onPress={() => { }}>
-                                邀请好友
+                                <Text style={{ lineHeight: 50 }}>邀请好友</Text>
                             </Item>
                             <Item
                                 thumb={
@@ -139,10 +140,9 @@ export default class Mine extends React.Component {
                                         style={{ width: 29, height: 29, marginRight: 5 }}
                                     />
                                 }
-                                style={{ height: 50 }}
                                 arrow="horizontal"
                                 onPress={() => { }}>
-                                账户管理
+                                <Text style={{ lineHeight: 50 }}>账户管理</Text>
                             </Item>
                             <Item
                                 thumb={
@@ -151,10 +151,9 @@ export default class Mine extends React.Component {
                                         style={{ width: 29, height: 29, marginRight: 5 }}
                                     />
                                 }
-                                style={{ height: 50 }}
                                 arrow="horizontal"
                                 onPress={() => { }}>
-                                实名认证
+                                <Text style={{ lineHeight: 50 }}>实名认证</Text>
                             </Item>
                             <Item
                                 thumb={
@@ -163,10 +162,9 @@ export default class Mine extends React.Component {
                                         style={{ width: 29, height: 29, marginRight: 5 }}
                                     />
                                 }
-                                style={{ height: 50 }}
                                 arrow="horizontal"
-                                onPress={() => { }}>
-                                设置
+                                onPress={() => { this.props.navigation.navigate('setting') }}>
+                                <Text style={{ lineHeight: 50 }}>设置</Text>
                             </Item>
                         </View>
                     </View>

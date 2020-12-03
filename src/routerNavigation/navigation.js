@@ -7,12 +7,21 @@ import TabBar from './tabBar'
 const Stack = createStackNavigator();
 
 import Login from '../pages/login/login'
-
+import Settings from '../pages/mine/setting/settings';
+import ServiceDetail from '../pages/mine/setting/serviceDetail'
+import AboutUs from '../pages/mine/setting/aboutUs'
 
 export default function Navigation() {
     return (
         <NavigationContainer>
             <Stack.Navigator>
+                <Stack.Screen
+                    name="home"
+                    options={{
+                        headerShown: false
+                    }}
+                    component={TabBar}
+                />
                 <Stack.Screen
                     name="login"
                     component={Login}
@@ -22,11 +31,28 @@ export default function Navigation() {
                     }}
                 />
                 <Stack.Screen
-                    name="home"
+                    name="setting"
                     options={{
-                        headerShown: false
+                        headerTitleAlign: 'center',
+                        title: '设置',
                     }}
-                    component={TabBar}
+                    component={Settings}
+                />
+                <Stack.Screen
+                    name="serviceDetail"
+                    options={{
+                        headerTitleAlign: 'center',
+                        title: '用户运算力租赁协议',
+                    }}
+                    component={ServiceDetail}
+                />
+                <Stack.Screen
+                    name="aboutUs"
+                    options={{
+                        headerTitleAlign: 'center',
+                        title: '关于我们',
+                    }}
+                    component={AboutUs}
                 />
             </Stack.Navigator>
         </NavigationContainer>
