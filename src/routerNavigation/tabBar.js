@@ -8,29 +8,29 @@ import Rate from '../pages/rate/rate';
 
 const Stack = createStackNavigator();
 
-function navMine() {
-    return (
-        <Stack.Navigator>
-            <Stack.Screen
-                name="Mine"
-                component={Mine}
-                options={{
-                    title: '个人中心',
-                    headerTitleAlign: 'center',
-                    headerStyle: {
-                        backgroundColor: '#f0ac25FF',
-                        borderBottomWidth: 0,
-                        elevation: 0,
-                    },
-                    headerTintColor: '#fff',
-                    headerTitleStyle: {
-                        fontWeight: '600',
-                    },
-                }}
-            />
-        </Stack.Navigator>
-    )
-}
+// function navMine() {
+//     return (
+//         <Stack.Navigator>
+//             <Stack.Screen
+//                 name="Mine"
+//                 component={Mine}
+//                 options={{
+//                     title: '个人中心',
+//                     headerTitleAlign: 'center',
+//                     headerStyle: {
+//                         backgroundColor: '#f0ac25FF',
+//                         borderBottomWidth: 0,
+//                         elevation: 0,
+//                     },
+//                     headerTintColor: '#fff',
+//                     headerTitleStyle: {
+//                         fontWeight: '600',
+//                     },
+//                 }}
+//             />
+//         </Stack.Navigator>
+//     )
+// }
 
 const TabData = {
     home: {
@@ -43,7 +43,7 @@ const TabData = {
     },
     info: {
         title: '我的',
-        fun: navMine
+        fun: Mine
     }
 }
 const Tab = createBottomTabNavigator();

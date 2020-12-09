@@ -5,17 +5,42 @@ import {
   StyleSheet, Image, ScrollView, TouchableWithoutFeedback
 } from 'react-native';
 import { List } from '@ant-design/react-native';
+import store from '../../store'
+import { useFocusEffect } from '@react-navigation/native';
 // import { getMyPower } from '../../request/api/userInfoApi'
 const Item = List.Item;
-export default class Mine extends React.Component {
-  constructor() {
-    super()
+
+
+export default function Mine({ navigation }) {
+  useFocusEffect(
+    React.useCallback(() => {
+      return () => {
+      };
+    }, [])
+  );
+  // console.log(this)
+
+  return <Profile navigation={navigation} />;
+}
+
+class Profile extends React.Component {
+  constructor(props) {
+    super(props)
     this.state = {
     }
   }
 
   componentDidMount() {
-    console.log(this.props)
+    console.log('mine')
+    console.log(this)
+    // console.log(store)
+    // store.load({
+    //   key: 'userState',
+    // }).then(res => {
+    //   console.log(res)
+    // }).catch(err => {
+    //   this.props.navigation.navigate('login')
+    // })
     // getMyPower({ number: 1 }).then(res => {
     //     console.log(res)
     // })
@@ -156,7 +181,7 @@ export default class Mine extends React.Component {
                   />
                 }
                 arrow="horizontal"
-                onPress={() => { }}>
+                onPress={() => { this.props.navigation.navigate('actual') }}>
                 <Text style={{ lineHeight: 50 }}>实名认证</Text>
               </Item>
               <Item

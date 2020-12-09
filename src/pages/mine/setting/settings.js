@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, View, Text, StyleSheet, Alert } from 'react-native';
 import { List } from '@ant-design/react-native'
 const Item = List.Item;
+import store from '../../../store'
 export default class Settings extends React.Component {
     constructor() {
         super()
@@ -10,8 +11,16 @@ export default class Settings extends React.Component {
     }
 
     componentDidMount() {
+        console.log('setting')
     }
 
+    logOut() {
+        this.props.navigation.navigate('login')
+        // store.clearMapForKey('userState');
+        store.remove({
+            key: 'userState',
+        });
+    }
 
     render() {
         return (
@@ -30,7 +39,7 @@ export default class Settings extends React.Component {
                     <Button
                         title="退出账号"
                         color="#f69b3c"
-                        onPress={() => Alert.alert('Button with adjusted color pressed')}
+                        onPress={() => { this.logOut() }}
                     />
                 </View>
             </View>

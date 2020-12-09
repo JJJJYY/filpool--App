@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useFocusEffect } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, } from 'react-native';
 import TabBar from './tabBar'
@@ -10,8 +10,10 @@ import Login from '../pages/login/login'
 import Settings from '../pages/mine/setting/settings';
 import ServiceDetail from '../pages/mine/setting/serviceDetail'
 import AboutUs from '../pages/mine/setting/aboutUs'
+import Actual from '../pages/mine/actual/actual'
 
 export default function Navigation() {
+
     return (
         <NavigationContainer>
             <Stack.Navigator>
@@ -53,6 +55,14 @@ export default function Navigation() {
                         title: '关于我们',
                     }}
                     component={AboutUs}
+                />
+                <Stack.Screen
+                    name="actual"
+                    options={{
+                        headerTitleAlign: 'center',
+                        title: '实名认证',
+                    }}
+                    component={Actual}
                 />
             </Stack.Navigator>
         </NavigationContainer>

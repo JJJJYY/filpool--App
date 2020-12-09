@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, Alert, TouchableOpacity, ScrollView } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import Video from 'react-native-video';
 import { getVideoListApi } from '../../request/api/homeApi'
 import store from '../../store'
@@ -12,7 +13,29 @@ import Storage from './components/storage'
 // 社区介绍
 import Community from './components/community'
 import Partners from './components/partners'
-export default class Home extends React.Component {
+
+
+export default function Home({ navigation }) {
+    useFocusEffect(
+        React.useCallback(() => {
+            // console.log(store)
+            // Do something when the screen is focused
+            return () => {
+                store.load({
+                    key: 'userState',
+                }).then(res => {
+                    console.log(res)
+                }).catch(err => {
+                    navigation.navigate('login')
+                })
+            };
+        }, [])
+    );
+
+    return <Profile />;
+}
+class Profile extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -43,7 +66,7 @@ export default class Home extends React.Component {
     }
 
     componentDidMount() {
-        console.log('home ', store)
+        // console.log('home ', store)
         this.videoList()
     }
     videoList() {

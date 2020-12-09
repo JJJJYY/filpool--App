@@ -16,7 +16,7 @@ export default class Login extends React.Component {
   }
 
   componentDidMount() {
-    // console.log(store)
+    console.log('login')
     // store.load({
     //     key: 'user',
     // }).then(res => {
@@ -37,7 +37,7 @@ export default class Login extends React.Component {
     }
     getLoginApi(postData).then(res => {
       if (res.ret === 200) {
-        this.props.navigation.navigate('home')
+        this.props.navigation.navigate('首页')
         store.load({
           key: 'user',
         }).then(res => {
@@ -80,7 +80,9 @@ export default class Login extends React.Component {
       <View style={styles.loginCentent}>
         <View style={styles.loginPadding}>
           <View style={styles.loginFlexText}>
-            <Text style={styles.loginTextTitle}>取消</Text>
+            <TouchableOpacity onPress={() => { this.props.navigation.navigate('首页') }}>
+              <Text style={styles.loginTextTitle}>取消</Text>
+            </TouchableOpacity>
             <Text style={styles.loginTextTitle}>注册</Text>
           </View>
           <View style={{ marginTop: 50 }}>
