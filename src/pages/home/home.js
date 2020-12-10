@@ -24,7 +24,7 @@ export default function Home({ navigation }) {
                 store.load({
                     key: 'userState',
                 }).then(res => {
-                    console.log(res)
+                    // console.log(res)
                 }).catch(err => {
                     navigation.navigate('login')
                 })

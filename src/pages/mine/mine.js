@@ -32,7 +32,6 @@ class Profile extends React.Component {
 
   componentDidMount() {
     console.log('mine')
-    console.log(this)
     // console.log(store)
     // store.load({
     //   key: 'userState',

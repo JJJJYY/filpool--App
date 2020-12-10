@@ -12,7 +12,6 @@ export default class AboutUs extends React.Component {
 
     componentDidMount() {
         this.getContent()
-        console.log(WebView)
     }
 
     getContent() {
