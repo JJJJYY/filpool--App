@@ -1,18 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Dimensions, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Dimensions, TextInput, Platform, Alert, Image } from 'react-native';
 import store from '../../../store'
 const { height } = Dimensions.get('window');
-let maxHeightBox = height - 100
+let maxHeightBox = height - 100;
+import ImagePicker from 'react-native-image-picker';
 import {
   Button,
   Modal,
-  WhiteSpace,
-  WingBlank,
-  Toast,
-  Provider,
-  PickerView
 } from '@ant-design/react-native';
-import country from '../../../utils/country'
+import country from '../../../utils/country';
+import { getTokenApi, filePictureApi } from '../../../request/api/userInfoApi'
 export default class Actual extends React.Component {
   constructor() {
     super()
@@ -23,7 +20,12 @@ export default class Actual extends React.Component {
       visible: false,
       searchKey: '请选择国家',
       realName: '',
-      idCardNo: ''
+      idCardNo: '',
+      localPhoOption: [], // 存储本地文件路径，用户本地展示图片
+      avatarSourceLeft: require('../../../assets/img/actual/card-right.png'),
+      avatarSourceRight: require('../../../assets/img/actual/card-back.png'),
+      token: '',
+      imageKey: ''
     }
     this.onClose = () => {
       this.setState({
@@ -34,6 +36,12 @@ export default class Actual extends React.Component {
 
   componentDidMount() {
     console.log('actual')
+    getTokenApi().then(res => {
+      console.log(res)
+      this.setState({
+        token: res.data
+      })
+    })
     store.load({
       key: 'userState'
     }).then(res => {
@@ -80,6 +88,73 @@ export default class Actual extends React.Component {
 
   }
 
+
+  // 添加图片 点击
+  handleAddPicCheck() {
+    // console.warn('添加图片------check')
+    let { localPhoOption } = this.state
+    let { props } = this
+    let that = this
+    const options = {
+      title: '选择图片',
+      cancelButtonTitle: '取消',
+      takePhotoButtonTitle: '拍照',
+      chooseFromLibraryButtonTitle: '相册',
+      cameraType: 'back',
+      mediaType: 'photo',
+      videoQuality: 'high',
+      durationLimit: 10,
+      maxWidth: 720,
+      maxHeight: 1280,
+      aspectX: 2,
+      aspectY: 1,
+      quality: 1,
+      angle: 0,
+      allowsEditing: false,
+      noData: false,
+      storageOptions: {
+        skipBackup: true,
+        path: 'PickLocalImg' // 存储本地地址
+      }
+    };
+    ImagePicker.showImagePicker(options, (response) => {
+      // console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('用户取消图像选择器');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('用户点击自定义按钮： ', response.customButton);
+      } else {
+        const source = { uri: response.uri, type: response.type, name: response.fileName || `IMG_${new Date().getTime()}.JPG` };
+        let formData = new FormData();
+        formData.append('file', source);
+        formData.append("token", this.state.token);
+
+        // 请求七牛云服务获取key
+        fetch("https://up-z2.qiniup.com/", {
+          method: 'POST',
+          body: formData,
+          headers: {
+            // 'Content-Type': 'multipart/form-data; boundary=------------------------7aa9c49f35d7c3fc'
+          },
+        }).then((response) => response.json())
+          .then(response => {
+            console.log('res', response)
+            this.imageKey = response.key
+          }).catch(error => console.error('Error:', error))
+
+        // 展示图片
+        this.setState({
+          avatarSourceLeft: source,
+        });
+      }
+    });
+
+  }
+
+
   ActualStatus() {
     const { userData } = this.state
     if (this.showActualStatus() && userData.authStatus === 3) {
@@ -121,14 +196,14 @@ export default class Actual extends React.Component {
           <View style={styles.actualTextTitle}>
             <View>
               <Text>国家和地区</Text>
-              <Button onPress={() => { this.setState({ visible: true }) }}>{this.state.searchKey}</Button>
+              <Button style={{ marginTop: 10 }} onPress={() => { this.setState({ visible: true }) }}>{this.state.searchKey}</Button>
             </View>
             <View style={{ marginTop: 20 }}>
               <Text>姓名</Text>
               <TextInput
                 editable={userData.authStatus === 1 ? false : true}
                 placeholder="请输入姓名"
-                style={{ height: 40, borderColor: '#dddddd', borderWidth: 1 }}
+                style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, marginTop: 10 }}
                 onChangeText={text => this.onChangeText(text)}
                 value={this.state.realName}
               />
@@ -138,13 +213,32 @@ export default class Actual extends React.Component {
               <TextInput
                 editable={userData.authStatus === 1 ? false : true}
                 placeholder="请输入证件号码"
-                style={{ height: 40, borderColor: '#dddddd', borderWidth: 1 }}
+                style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, marginTop: 10 }}
                 onChangeText={text => this.onChangeText1(text)}
                 value={this.state.idCardNo}
               />
             </View>
           </View>
 
+          {/* 上传图片 */}
+          <View style={styles.actualImage}>
+            <View style={{ width: 200, }}>
+              <Image
+                style={{ width: 200, height: 100, resizeMode: 'stretch' }}
+                source={this.state.avatarSourceLeft}
+              />
+              <Text style={styles.actualImageText}>请上传身份证正面</Text>
+              <Button style={styles.actualImageButton} onPress={() => { this.handleAddPicCheck() }}>上传</Button>
+            </View>
+            <View style={{ width: 200, }}>
+              <Image
+                style={{ width: 200, height: 100, resizeMode: 'stretch' }}
+                source={this.state.avatarSourceRight}
+              />
+              <Text style={styles.actualImageText}>请上传身份证反面</Text>
+              <Button style={styles.actualImageButton} onPress={() => { this.handleAddPicCheck() }}>上传</Button>
+            </View>
+          </View>
 
           <Modal
             popup
@@ -211,5 +305,22 @@ const styles = StyleSheet.create({
   actualCententP: {
     marginTop: 10,
     color: '#86929d'
+  },
+  actualImage: {
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  actualImageText: {
+    textAlign: 'center',
+    marginTop: 10
+  },
+  actualImageButton: {
+    backgroundColor: '#f18a2d',
+    width: 150,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 10,
+    color: '#fff'
   }
 })

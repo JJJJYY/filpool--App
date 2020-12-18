@@ -17,7 +17,10 @@ const PostFetch = (url, jsondata) => new Promise((resolve, reject) => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                // 'Content-Type': 'multipart/form-data; boundary=6ff46e0b6b5148d984f148b6542e5a5d',
             },
+            // processData: false,
+            // contentType: false,
             body: JSON.stringify(jsondata)
             // cancelToken: new CancelToken(function executor(c) {
             //   _this.cancelAjax = c
