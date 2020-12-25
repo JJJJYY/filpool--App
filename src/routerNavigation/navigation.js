@@ -11,6 +11,10 @@ import Settings from '../pages/mine/setting/settings';
 import ServiceDetail from '../pages/mine/setting/serviceDetail'
 import AboutUs from '../pages/mine/setting/aboutUs'
 import Actual from '../pages/mine/actual/actual'
+// 账户中心
+import SecurityCenter from '../pages/mine/securityCenter/securityCenter'
+// 登录密码
+import SecurityLoginPwd from '../pages/mine/securityCenter/components/securityLoginPwd'
 
 export default function Navigation() {
 
@@ -63,6 +67,22 @@ export default function Navigation() {
                         title: '实名认证',
                     }}
                     component={Actual}
+                />
+                <Stack.Screen
+                    name="securityCenter"
+                    options={{
+                        headerTitleAlign: 'center',
+                        title: '账户中心',
+                    }}
+                    component={SecurityCenter}
+                />
+                <Stack.Screen
+                    name="securityLoginPwd"
+                    options={{
+                        headerTitleAlign: 'center',
+                        title: '登录密码',
+                    }}
+                    component={SecurityLoginPwd}
                 />
             </Stack.Navigator>
         </NavigationContainer>

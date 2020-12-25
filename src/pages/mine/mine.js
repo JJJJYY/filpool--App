@@ -169,7 +169,7 @@ class Profile extends React.Component {
                   />
                 }
                 arrow="horizontal"
-                onPress={() => { }}>
+                onPress={() => { this.props.navigation.navigate('securityCenter') }}>
                 <Text style={{ lineHeight: 50 }}>账户管理</Text>
               </Item>
               <Item
