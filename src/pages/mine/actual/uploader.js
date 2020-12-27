@@ -6,7 +6,9 @@ import {
   Button,
   Modal,
 } from '@ant-design/react-native';
-
+const { width } = Dimensions.get('window');
+const imageWidth = width / 2 -30
+console.log(imageWidth)
 export default class Uploader extends React.Component {
 
   constructor(props) {
@@ -88,9 +90,9 @@ export default class Uploader extends React.Component {
 
   render() {
     return (
-      <View style={{ width: 200, }}>
+      <View style={{ width: imageWidth, }}>
         <Image
-          style={{ width: 200, height: 100, resizeMode: 'stretch' }}
+          style={{ width: imageWidth, height: 100, resizeMode: 'stretch' }}
           source={this.state.avatarSource}
         />
         <Text style={styles.actualImageText}>{this.props.text}</Text>
@@ -107,7 +109,7 @@ const styles = StyleSheet.create({
   },
   actualImageButton: {
     backgroundColor: '#f18a2d',
-    width: 150,
+    width: 130,
     marginLeft: 'auto',
     marginRight: 'auto',
     marginTop: 10,
