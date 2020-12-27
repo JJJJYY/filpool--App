@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Dimensions, TextInput, Platform, Alert, Image } from 'react-native';
 import { Toast } from '@ant-design/react-native';
 import store from '../../../../store'
+import md5 from "md5";
 const { height } = Dimensions.get('window');
 let maxHeightBox = height - 100;
 import {
@@ -9,7 +10,7 @@ import {
   Modal,
 } from '@ant-design/react-native';
 import { serviceURL } from "../../../../config";
-import { authSendApi } from "../../../../request/api/userInfoApi";
+import { authSendApi ,modifyPasswordApi} from "../../../../request/api/userInfoApi";
 
 export default class SecurityLoginPwd extends React.Component {
   constructor() {
@@ -116,6 +117,39 @@ export default class SecurityLoginPwd extends React.Component {
     })
   }
 
+  // 确认
+  submit() {
+    console.log('q111')
+    if (!this.state.newPwd) {
+      Toast.info("请输入新密码");
+      return;
+    }
+    if (this.state.newPwd !== this.state.newPwd2) {
+      Toast.info("两次输入的新密码不一致");
+      return;
+    }
+    if (!this.state.smsCode) {
+      Toast.info("请输入验证码");
+      return;
+    }
+    const postData = {
+      oldPassword: md5(this.state.currPwd),
+      password: md5(this.state.newPwd),
+      code: this.state.smsCode,
+    }
+    modifyPasswordApi(postData).then(res => {
+      console.log(res)
+      if(res.ret ===200) {
+        Toast.info('密码修改成功,请重新登录')
+        this.props.navigation.navigate('login')
+        store.remove({
+            key: 'userState',
+        });
+      }
+
+    })
+  }
+
   render() {
     const { userData } = this.state
     return (
@@ -185,7 +219,7 @@ export default class SecurityLoginPwd extends React.Component {
           </View>
         </View>
         <View style={{ paddingHorizontal: 20, marginTop: 50 }}>
-          <Button style={{ backgroundColor: '#f39032', borderRadius: 30 }}><Text style={{ color: '#fff' }}>确认</Text></Button>
+          <Button onPress={()=> {this.submit()}} style={{ backgroundColor: '#f39032', borderRadius: 30 }}><Text style={{ color: '#fff' }}>确认</Text></Button>
         </View>
         <Text style={{ textAlign: 'center', marginTop: 10 }}>修改登录密码24小时不可提现</Text>
       </View>
