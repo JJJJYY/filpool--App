@@ -16,7 +16,9 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* filpoolAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* filpoolAppTests.m */; };
-		704337272568F54A0048D41E /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 704337262568F54A0048D41E /* iconfont.ttf */; };
+		709756BC259851A6009BC51E /* antfill.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 709756A9259851A6009BC51E /* antfill.ttf */; };
+		709756C1259851A6009BC51E /* antoutline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 709756AE259851A6009BC51E /* antoutline.ttf */; };
+		709756C9259851A6009BC51E /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 709756B6259851A6009BC51E /* iconfont.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8225B3B0A1860EAEB4CEA5F5 /* libPods-filpoolApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E925EC8F779830AEF4F440E2 /* libPods-filpoolApp.a */; };
 		A1D98063B4EB1FFB2DFB8F98 /* libPods-filpoolApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B119BCC8743D0BDE015BD62 /* libPods-filpoolApp-tvOS.a */; };
@@ -60,7 +62,9 @@
 		33CF01F0DF70430D9E895846 /* Pods-filpoolApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-filpoolApp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-filpoolApp-tvOSTests/Pods-filpoolApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		3FAA6BFD7D44CD1FC188132D /* Pods-filpoolApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-filpoolApp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-filpoolApp-tvOS/Pods-filpoolApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		626725393304C66D0B7676AA /* Pods-filpoolApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-filpoolApp.release.xcconfig"; path = "Target Support Files/Pods-filpoolApp/Pods-filpoolApp.release.xcconfig"; sourceTree = "<group>"; };
-		704337262568F54A0048D41E /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = iconfont.ttf; path = ../android/app/src/main/assets/fonts/iconfont.ttf; sourceTree = "<group>"; };
+		709756A9259851A6009BC51E /* antfill.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = antfill.ttf; sourceTree = "<group>"; };
+		709756AE259851A6009BC51E /* antoutline.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = antoutline.ttf; sourceTree = "<group>"; };
+		709756B6259851A6009BC51E /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = filpoolApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		883911FCBAAC74E1635D8BAF /* libPods-filpoolApp-filpoolAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-filpoolApp-filpoolAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA7973DFBCF2D1B940228FE6 /* libPods-filpoolApp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-filpoolApp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,8 +131,8 @@
 		13B07FAE1A68108700A75B9A /* filpoolApp */ = {
 			isa = PBXGroup;
 			children = (
-				704337262568F54A0048D41E /* iconfont.ttf */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				709756A8259851A6009BC51E /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -165,6 +169,17 @@
 				33CF01F0DF70430D9E895846 /* Pods-filpoolApp-tvOSTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		709756A8259851A6009BC51E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				709756A9259851A6009BC51E /* antfill.ttf */,
+				709756AE259851A6009BC51E /* antoutline.ttf */,
+				709756B6259851A6009BC51E /* iconfont.ttf */,
+			);
+			name = Fonts;
+			path = filpoolApp/Fonts;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -351,8 +366,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				709756C9259851A6009BC51E /* iconfont.ttf in Resources */,
+				709756BC259851A6009BC51E /* antfill.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				704337272568F54A0048D41E /* iconfont.ttf in Resources */,
+				709756C1259851A6009BC51E /* antoutline.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
