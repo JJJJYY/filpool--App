@@ -15,6 +15,8 @@ import Actual from '../pages/mine/actual/actual'
 import SecurityCenter from '../pages/mine/securityCenter/securityCenter'
 // 登录密码
 import SecurityLoginPwd from '../pages/mine/securityCenter/components/securityLoginPwd'
+// 修改绑定手机号码
+import securityMobileModify from '../pages/mine/securityCenter/components/securityMobileModify'
 
 export default function Navigation() {
 
@@ -83,6 +85,14 @@ export default function Navigation() {
                         title: '登录密码',
                     }}
                     component={SecurityLoginPwd}
+                />
+                <Stack.Screen
+                    name="securityMobileModify"
+                    options={{
+                        headerTitleAlign: 'center',
+                        title: '修改绑定手机号码',
+                    }}
+                    component={securityMobileModify}
                 />
             </Stack.Navigator>
         </NavigationContainer>

@@ -2,6 +2,10 @@
 import {
     serviceURL
 } from "../config";
+import {
+    Toast
+} from '@ant-design/react-native';
+
 
 const getFetch = url => new Promise((resolve, reject) => {
     fetch(url, {
@@ -9,6 +13,9 @@ const getFetch = url => new Promise((resolve, reject) => {
         })
         .then((response) => response.json())
         .then(response => {
+            if (response.ret === 402) {
+                Toast.info(response.msg)
+            }
             resolve(response)
         }).catch(err => reject(err))
 })
@@ -30,6 +37,9 @@ const PostFetch = (url, jsondata) => new Promise((resolve, reject) => {
         })
         .then((response) => response.json())
         .then(response => {
+            if (response.ret === 402) {
+                Toast.info(response.msg)
+            }
             resolve(response)
         }).catch(err => reject(err))
 });

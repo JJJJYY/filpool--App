@@ -10,7 +10,7 @@ import {
   Modal,
 } from '@ant-design/react-native';
 import { serviceURL } from "../../../../config";
-import { authSendApi ,modifyPasswordApi} from "../../../../request/api/userInfoApi";
+import { authSendApi, modifyPasswordApi } from "../../../../request/api/userInfoApi";
 
 export default class SecurityLoginPwd extends React.Component {
   constructor() {
@@ -119,7 +119,6 @@ export default class SecurityLoginPwd extends React.Component {
 
   // 确认
   submit() {
-    console.log('q111')
     if (!this.state.newPwd) {
       Toast.info("请输入新密码");
       return;
@@ -138,15 +137,13 @@ export default class SecurityLoginPwd extends React.Component {
       code: this.state.smsCode,
     }
     modifyPasswordApi(postData).then(res => {
-      console.log(res)
-      if(res.ret ===200) {
+      if (res.ret === 200) {
         Toast.info('密码修改成功,请重新登录')
         this.props.navigation.navigate('login')
         store.remove({
-            key: 'userState',
+          key: 'userState',
         });
       }
-
     })
   }
 
@@ -159,6 +156,7 @@ export default class SecurityLoginPwd extends React.Component {
           <TextInput
             placeholder="请输入当前登录密码"
             style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, marginTop: 10 }}
+            secureTextEntry={true}
             onChangeText={text => this.onChangeText(text)}
             value={this.state.currPwd}
           />
@@ -168,6 +166,7 @@ export default class SecurityLoginPwd extends React.Component {
           <TextInput
             placeholder="请输入登录密码"
             style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, marginTop: 10 }}
+            secureTextEntry={true}
             onChangeText={text => this.onChangeText1(text)}
             value={this.state.newPwd}
           />
@@ -177,6 +176,7 @@ export default class SecurityLoginPwd extends React.Component {
           <TextInput
             placeholder="请再次输入登录密码"
             style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, marginTop: 10 }}
+            secureTextEntry={true}
             onChangeText={text => this.onChangeText2(text)}
             value={this.state.newPwd2}
           />
@@ -219,7 +219,7 @@ export default class SecurityLoginPwd extends React.Component {
           </View>
         </View>
         <View style={{ paddingHorizontal: 20, marginTop: 50 }}>
-          <Button onPress={()=> {this.submit()}} style={{ backgroundColor: '#f39032', borderRadius: 30 }}><Text style={{ color: '#fff' }}>确认</Text></Button>
+          <Button onPress={() => { this.submit() }} style={{ backgroundColor: '#f39032', borderRadius: 30 }}><Text style={{ color: '#fff' }}>确认</Text></Button>
         </View>
         <Text style={{ textAlign: 'center', marginTop: 10 }}>修改登录密码24小时不可提现</Text>
       </View>

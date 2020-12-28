@@ -1,16 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Dimensions, TextInput, Platform, Alert, Image } from 'react-native';
-import { Toast } from '@ant-design/react-native';
+import { Toast, Button, Modal } from '@ant-design/react-native';
 import store from '../../../store'
 import { submitUserIdInfoApi } from '../../../request/api/userInfoApi'
 const { height } = Dimensions.get('window');
 let maxHeightBox = height - 100;
-import {
-  Button,
-  Modal,
-} from '@ant-design/react-native';
 import country from '../../../utils/country';
 import Uploader from './uploader'
+import AreaSelect from "../../../components/AreaSelect";
 
 export default class Actual extends React.Component {
   constructor() {
@@ -51,10 +48,14 @@ export default class Actual extends React.Component {
     return (this.state.userData.authStatus === 2 || this.state.userData.authStatus === 3) && this.state.step !== 0
   }
   // 设置国家
-  selectItem(item) {
+  selectItem = (item) => {
+    if (item) {
+      this.setState({
+        areaCode: item.code,
+        searchKey: item.value,
+      })
+    }
     this.setState({
-      areaCode: item.code,
-      searchKey: item.value,
       visible: false,
     })
   }
@@ -113,18 +114,6 @@ export default class Actual extends React.Component {
     })
   }
 
-
-  // 手机区号列表
-  renderContColumnItem(item) {
-    return (
-      <TouchableOpacity onPress={() => { this.selectItem(item) }} key={item.value}
-        style={{ height: 40, paddingHorizontal: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderColor: '#ddd' }
-        }>
-        <Text style={{ textAlign: 'center' }}>{item.value}</Text>
-        <Text style={{ textAlign: 'center' }}>+{item.code}</Text>
-      </TouchableOpacity>
-    )
-  }
 
   ActualStatus() {
     const { userData } = this.state
@@ -205,26 +194,8 @@ export default class Actual extends React.Component {
             />
           </View>
           <Button onPress={() => { this.submit() }} style={styles.getData}>提交审核</Button>
-          <Modal
-            popup
-            visible={this.state.visible}
-            animationType="slide-up"
-            onClose={this.onClose}
-          >
-            <View style={{ height: maxHeightBox }}>
-              <Button onPress={this.onClose}>
-                取消
-              </Button>
-              <ScrollView >
-                <FlatList
-                  style={styles.edit_list}
-                  keyExtractor={item => item.value}
-                  data={this.state.country}
-                  renderItem={({ item, index }) => this.renderContColumnItem(item, index)}
-                />
-              </ScrollView>
-            </View>
-          </Modal>
+          {console.log(this.state.visible)}
+          <AreaSelect areaSelectVisible={this.state.visible} selectItem={this.selectItem}></AreaSelect>
         </View>
       )
     }

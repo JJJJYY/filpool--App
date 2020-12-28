@@ -45,7 +45,7 @@ export default class SecurityCenter extends React.Component {
             <Item
               arrow="horizontal"
               extra={this.state.userData.phone ? "修改" : "绑定"}
-              onPress={() => { }}>
+              onPress={() => { this.props.navigation.navigate('securityMobileModify') }}>
               <Text style={{ lineHeight: 50 }}>修改手机号</Text>
             </Item>
             <Item
