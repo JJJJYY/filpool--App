@@ -5,43 +5,82 @@ import {
 import {
     Toast
 } from '@ant-design/react-native';
+import store from '../store'
+import NavigationService from '../utils/NavigationService'
 
+const getFetch = url => new Promise(async (resolve, reject) => {
 
-const getFetch = url => new Promise((resolve, reject) => {
+    let cookie = null
+    try {
+        cookie = await getCookie();
+    } catch (err) {
+        console.log('登录');
+    }
+    console.log('cookie', cookie)
+
     fetch(url, {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                'Cookie': cookie,
+            }
         })
-        .then((response) => response.json())
+        .then((response) => {
+            console.log('header', response)
+            return response.json()
+        })
         .then(response => {
             if (response.ret === 402) {
                 Toast.info(response.msg)
             }
+            if (response.ret === 401) {
+                Toast.info(response.msg)
+                NavigationService.navigate('login')
+            }
             resolve(response)
         }).catch(err => reject(err))
+
 })
 
-const PostFetch = (url, jsondata) => new Promise((resolve, reject) => {
+const PostFetch = (url, jsondata) => new Promise(async (resolve, reject) => {
+
+    let cookie = null
+    try {
+        cookie = await getCookie();
+    } catch (err) {
+        console.log('登录');
+    }
+    console.log('cookie', cookie)
+
     fetch(url, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                'Cookie': cookie,
                 // 'Content-Type': 'multipart/form-data; boundary=6ff46e0b6b5148d984f148b6542e5a5d',
             },
-            // processData: false,
-            // contentType: false,
             body: JSON.stringify(jsondata)
-            // cancelToken: new CancelToken(function executor(c) {
-            //   _this.cancelAjax = c
-            // })
         })
-        .then((response) => response.json())
+        .then((response) => {
+            console.log('header', response)
+            // 登录获取token
+            let map = response.headers.map
+            if (map['set-cookie']) {
+                setCookie(map)
+            }
+            return response.json()
+        })
         .then(response => {
             if (response.ret === 402) {
                 Toast.info(response.msg)
             }
+            if (response.ret === 401) {
+                Toast.info(response.msg)
+                NavigationService.navigate('login')
+            }
             resolve(response)
         }).catch(err => reject(err))
+
 });
 
 
@@ -77,3 +116,31 @@ export const postRequest = (api, data, baseUrl = null) => {
         return PostFetch(url, data);
     }
 };
+
+// 存cookie
+function setCookie(map) {
+    let cookie = map['set-cookie']
+    if (cookie.includes('token')) {
+        let strArr = cookie.split('expires')
+        cookie = strArr[0]
+        console.log(cookie)
+        store.save({
+            key: 'token',
+            data: cookie
+        });
+
+    }
+}
+
+// 取cookie
+function getCookie() {
+    return new Promise((resolve, reject) => {
+        store.load({
+            key: 'token',
+        }).then(res => {
+            resolve(res);
+        }).catch(err => {
+            reject(err);
+        })
+    })
+}

@@ -67,6 +67,11 @@ class Profile extends React.Component {
 
     componentDidMount() {
         // console.log('home ', store)
+        // store.load({
+        //     key: 'userState',
+        // }).then(res => {
+        //     console.log(res)
+        // })
         this.videoList()
     }
     videoList() {

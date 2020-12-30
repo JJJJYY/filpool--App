@@ -17,11 +17,12 @@ import SecurityCenter from '../pages/mine/securityCenter/securityCenter'
 import SecurityLoginPwd from '../pages/mine/securityCenter/components/securityLoginPwd'
 // 修改绑定手机号码
 import securityMobileModify from '../pages/mine/securityCenter/components/securityMobileModify'
-
+// 
+import NavigationService from '../utils/NavigationService'
 export default function Navigation() {
 
     return (
-        <NavigationContainer>
+        <NavigationContainer ref={e => { NavigationService.setTopLevelNavigator(e) }}>
             <Stack.Navigator>
                 <Stack.Screen
                     name="home"

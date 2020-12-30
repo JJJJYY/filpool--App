@@ -19,6 +19,7 @@ export default class Settings extends React.Component {
         // store.clearMapForKey('userState');
         store.remove({
             key: 'userState',
+            key: 'token',
         });
     }
 

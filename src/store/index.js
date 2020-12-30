@@ -30,7 +30,6 @@ storage.sync = {
     // 最后返回所需数据或一个promise
     async user() {
         const res = await getUserInfoApi();
-        // console.log(res);
 
         if (res.ret === 200) {
             storage.save({
