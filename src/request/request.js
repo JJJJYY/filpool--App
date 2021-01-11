@@ -25,7 +25,6 @@ const getFetch = url => new Promise(async (resolve, reject) => {
             }
         })
         .then((response) => {
-            console.log('header', response)
             return response.json()
         })
         .then(response => {
@@ -62,7 +61,6 @@ const PostFetch = (url, jsondata) => new Promise(async (resolve, reject) => {
             body: JSON.stringify(jsondata)
         })
         .then((response) => {
-            console.log('header', response)
             // 登录获取token
             let map = response.headers.map
             if (map['set-cookie']) {
@@ -121,8 +119,8 @@ export const postRequest = (api, data, baseUrl = null) => {
 function setCookie(map) {
     let cookie = map['set-cookie']
     if (cookie.includes('token')) {
-        let strArr = cookie.split('expires')
-        cookie = strArr[0]
+        // let strArr = cookie.split('expires')
+        // cookie = strArr[0]
         console.log(cookie)
         store.save({
             key: 'token',
@@ -135,10 +133,18 @@ function setCookie(map) {
 // 取cookie
 function getCookie() {
     return new Promise((resolve, reject) => {
-        store.load({
-            key: 'token',
-        }).then(res => {
-            resolve(res);
+        store.getBatchData([{
+                key: 'token',
+            },
+            {
+                key: 'imageCode',
+            }
+        ]).then(results => {
+            let res = []
+            results.forEach(result => {
+                res.push(result)
+            })
+            resolve(res.join(','));
         }).catch(err => {
             reject(err);
         })

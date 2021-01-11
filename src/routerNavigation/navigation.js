@@ -17,7 +17,9 @@ import SecurityCenter from '../pages/mine/securityCenter/securityCenter'
 import SecurityLoginPwd from '../pages/mine/securityCenter/components/securityLoginPwd'
 // 修改绑定手机号码
 import securityMobileModify from '../pages/mine/securityCenter/components/securityMobileModify'
-// 
+// 修改绑定邮箱
+import securityEmailPwd from '../pages/mine/securityCenter/components/securityEmailPwd'
+// 原生js跳转功能
 import NavigationService from '../utils/NavigationService'
 export default function Navigation() {
 
@@ -91,9 +93,17 @@ export default function Navigation() {
                     name="securityMobileModify"
                     options={{
                         headerTitleAlign: 'center',
-                        title: '修改绑定手机号码',
+                        title: '修改/绑定手机号码',
                     }}
                     component={securityMobileModify}
+                />
+                <Stack.Screen
+                    name="securityEmailPwd"
+                    options={{
+                        headerTitleAlign: 'center',
+                        title: '修改/绑定邮箱',
+                    }}
+                    component={securityEmailPwd}
                 />
             </Stack.Navigator>
         </NavigationContainer>

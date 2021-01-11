@@ -9,12 +9,10 @@ import {
   Button,
   Modal,
 } from '@ant-design/react-native';
-import { serviceURL } from "../../../../config";
-import { authSendApi, modifyPhoneApi, getImageCodeRes } from "../../../../request/api/userInfoApi";
+import { authSendApi, modifyEmailApi, getImageCodeRes } from "../../../../request/api/userInfoApi";
 import { sendApi } from "../../../../request/api/loginApi";
-import AreaSelect from "../../../../components/AreaSelect";
 
-export default class securityMobileModify extends React.Component {
+export default class SecurityEmailPwd extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -22,18 +20,18 @@ export default class securityMobileModify extends React.Component {
       areaCode: '86',
       searchKey: '',
       visible: false,
-      oldPhoneCaptcha: null,
+      oldEmailCaptcha: null,
       interval: 60,
       sendding: false,
       imgCode: "",
-      phone: '',
-      newPhoneCaptcha: '',
+      email: '',
+      newEmailCaptcha: '',
       status: 1
     }
   }
 
   componentDidMount() {
-    console.log('securityMobileModify')
+    console.log('SecurityEmailPwd')
     this.getImgCode()
     store.load({
       key: 'userState'
@@ -56,8 +54,8 @@ export default class securityMobileModify extends React.Component {
     })
   }
 
-  isPhone() {
-    return this.state.userData.defaultAccount === 0;
+  isEmail() {
+    return this.state.userData.defaultAccount === 1;
   }
   // 获取图形验证码
   getImgCode() {
@@ -94,7 +92,7 @@ export default class securityMobileModify extends React.Component {
     })
     if (status === 1) {
       const postData = {
-        type: this.isPhone() ? "phone" : "email",
+        type: this.isEmail() ? "email" : "phone",
         imageCaptcha: this.state.imgCode,
       };
       authSendApi(postData)
@@ -117,9 +115,8 @@ export default class securityMobileModify extends React.Component {
     // 第二个短信验证码
     if (status === 2) {
       const postData = {
-        type: "phone",
-        areaCode: this.state.areaCode,
-        to: this.state.phone,
+        type: "email",
+        to: this.state.email,
         imageCaptcha: this.state.imgCode,
       };
       sendApi(postData)
@@ -147,30 +144,29 @@ export default class securityMobileModify extends React.Component {
   }
   onChangeText2(text) {
     this.setState({
-      oldPhoneCaptcha: text
+      oldEmailCaptcha: text
     })
   }
   onChangeText3(text) {
     this.setState({
-      phone: text
+      email: text
     })
   }
   onChangeText4(text) {
     this.setState({
-      newPhoneCaptcha: text
+      newEmailCaptcha: text
     })
   }
 
   // 确认
   submit() {
     const postData = {
-      oldPhoneCaptcha: this.state.oldPhoneCaptcha,
-      areaCode: this.state.areaCode,
-      phone: this.state.phone,
-      newPhoneCaptcha: this.state.newPhoneCaptcha
+      oldEmailCaptcha: this.state.oldEmailCaptcha,
+      email: this.state.email,
+      emailCaptcha: this.state.newEmailCaptcha
     }
     console.log(postData)
-    modifyPhoneApi(postData).then(res => {
+    modifyEmailApi(postData).then(res => {
       if (res.ret === 200) {
         Toast.info('修改成功')
         store.load({
@@ -189,11 +185,6 @@ export default class securityMobileModify extends React.Component {
     const { userData } = this.state
     return (
       <View style={styles.securityLoginPwdCentent}>
-        {/* 选择国际 */}
-        {
-          this.state.visible ? <AreaSelect areaSelectVisible={this.state.visible} selectItem={this.selectItem}></AreaSelect> : null
-        }
-
         <View style={{ marginTop: 20 }}>
           <Text>图形验证码</Text>
           <View style={styles.textImage}>
@@ -214,13 +205,13 @@ export default class securityMobileModify extends React.Component {
           </View>
         </View>
         <View style={{ marginTop: 20 }}>
-          <Text>{this.isPhone() ? '原手机号码' : '邮箱'}({this.isPhone() ? userData.phone : userData.email})</Text>
+          <Text>{this.isEmail() ? '原邮箱' : '手机号码'}({this.isEmail() ? userData.email : userData.email})</Text>
           <View style={styles.textImage}>
             <TextInput
               placeholder="请输入短信验证码"
               style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, flex: 1 }}
               onChangeText={text => this.onChangeText2(text)}
-              value={this.state.oldPhoneCaptcha}
+              value={this.state.oldEmailCaptcha}
             />
             <Button
               disabled={this.state.sendding && this.state.status === 1}
@@ -232,31 +223,25 @@ export default class securityMobileModify extends React.Component {
           </View>
         </View>
         <View style={{ marginTop: 20 }}>
-          <Text>新手机号码</Text>
+          <Text>新邮箱地址</Text>
           <View style={styles.textImage}>
-            <Button
-              style={{ height: 40 }}
-              onPress={() => { this.setState({ visible: true }) }}
-            >
-              <Text >+{this.state.areaCode}</Text>
-            </Button>
             <TextInput
-              placeholder="请输入新手机号码"
+              placeholder="请输入新邮箱地址"
               style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, flex: 1 }}
               onChangeText={text => this.onChangeText3(text)}
-              value={this.state.phone}
+              value={this.state.email}
             />
           </View>
 
         </View>
         <View style={{ marginTop: 20 }}>
-          <Text>验证码</Text>
+          <Text>新邮箱验证码</Text>
           <View style={styles.textImage}>
             <TextInput
               placeholder="请输入短信验证码"
               style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, flex: 1 }}
               onChangeText={text => this.onChangeText4(text)}
-              value={this.state.newPhoneCaptcha}
+              value={this.state.newEmailCaptcha}
             />
             <Button
               disabled={this.state.sendding && this.state.status === 2}

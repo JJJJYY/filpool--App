@@ -2,6 +2,14 @@ import {
     postRequest,
     getRequest
 } from '../request';
+import {
+    getImageCode
+} from "../imageCode";
+
+// 图片验证码
+export function getImageCodeRes() {
+    return getImageCode()
+}
 
 // 获取总算力
 export function myWeightApi(data) {

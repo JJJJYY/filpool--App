@@ -51,7 +51,7 @@ export default class SecurityCenter extends React.Component {
             <Item
               arrow="horizontal"
               extra={this.state.userData.email ? "已绑定" : "未绑定"}
-              onPress={() => { }}>
+              onPress={() => { this.props.navigation.navigate('securityEmailPwd') }}>
               <Text style={{ lineHeight: 50 }}>绑定邮箱</Text>
             </Item>
             <Item
