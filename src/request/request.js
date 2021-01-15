@@ -14,9 +14,9 @@ const getFetch = url => new Promise(async (resolve, reject) => {
     try {
         cookie = await getCookie();
     } catch (err) {
-        console.log('登录');
+        // console.log('登录');
     }
-    console.log('cookie', cookie)
+    // console.log('cookie', cookie)
 
     fetch(url, {
             method: 'GET',
@@ -46,9 +46,9 @@ const PostFetch = (url, jsondata) => new Promise(async (resolve, reject) => {
     try {
         cookie = await getCookie();
     } catch (err) {
-        console.log('登录');
+        // console.log('登录');
     }
-    console.log('cookie', cookie)
+    // console.log('cookie', cookie)
 
     fetch(url, {
             method: 'POST',
@@ -121,7 +121,7 @@ function setCookie(map) {
     if (cookie.includes('token')) {
         // let strArr = cookie.split('expires')
         // cookie = strArr[0]
-        console.log(cookie)
+        // console.log(cookie)
         store.save({
             key: 'token',
             data: cookie

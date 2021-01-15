@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Dimensions, TextInput, Platform, Alert, Image } from 'react-native';
-import { List } from '@ant-design/react-native';
+import { List, Toast } from '@ant-design/react-native';
 import store from '../../../store'
 import { submitUserIdInfoApi } from '../../../request/api/userInfoApi'
 const { height } = Dimensions.get('window');
@@ -30,8 +30,22 @@ export default class SecurityCenter extends React.Component {
       })
     })
   }
-
+  jump() {
+    if (this.state.userData.ga) {
+      this.props.navigation.navigate('securityTransPwd')
+    } else {
+      Toast.info("请先开启谷歌验证");
+    }
+  }
+  jumpGoogle() {
+    if (this.state.userData.ga === 1) {
+      this.props.navigation.navigate('googleModify')
+    } else {
+      this.props.navigation.navigate('googleBind')
+    }
+  }
   render() {
+    console.log(this.state.userData)
     return (
       <View>
         <View style={{ marginTop: 10 }}>
@@ -44,26 +58,26 @@ export default class SecurityCenter extends React.Component {
             </Item>
             <Item
               arrow="horizontal"
-              extra={this.state.userData.phone ? "修改" : "绑定"}
+              extra={this.state.userData.phone}
               onPress={() => { this.props.navigation.navigate('securityMobileModify') }}>
-              <Text style={{ lineHeight: 50 }}>修改手机号</Text>
+              <Text style={{ lineHeight: 50 }}>{this.state.userData.phone ? "修改" : "绑定"}手机号</Text>
             </Item>
             <Item
               arrow="horizontal"
               extra={this.state.userData.email ? "已绑定" : "未绑定"}
               onPress={() => { this.props.navigation.navigate('securityEmailPwd') }}>
-              <Text style={{ lineHeight: 50 }}>绑定邮箱</Text>
+              <Text style={{ lineHeight: 50 }}>{this.state.userData.email ? "修改" : "绑定"}邮箱</Text>
             </Item>
             <Item
               arrow="horizontal"
               extra={this.state.userData.payPwd === 1 ? "修改" : "设置"}
-              onPress={() => { }}>
+              onPress={() => { this.jump() }}>
               <Text style={{ lineHeight: 50 }}>资金密码</Text>
             </Item>
             <Item
               arrow="horizontal"
               extra={this.state.userData.ga === 1 ? "已绑定" : "未绑定"}
-              onPress={() => { }}>
+              onPress={() => { this.jumpGoogle() }}>
               <Text style={{ lineHeight: 50 }}>Google验证</Text>
             </Item>
           </View>

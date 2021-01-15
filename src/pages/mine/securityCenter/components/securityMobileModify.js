@@ -188,91 +188,93 @@ export default class securityMobileModify extends React.Component {
   render() {
     const { userData } = this.state
     return (
-      <View style={styles.securityLoginPwdCentent}>
-        {/* 选择国际 */}
-        {
-          this.state.visible ? <AreaSelect areaSelectVisible={this.state.visible} selectItem={this.selectItem}></AreaSelect> : null
-        }
+      <ScrollView>
+        <View style={styles.securityLoginPwdCentent}>
+          {/* 选择国际 */}
+          {
+            this.state.visible ? <AreaSelect areaSelectVisible={this.state.visible} selectItem={this.selectItem}></AreaSelect> : null
+          }
 
-        <View style={{ marginTop: 20 }}>
-          <Text>图形验证码</Text>
-          <View style={styles.textImage}>
-            <TextInput
-              placeholder="请输入图像验证码"
-              style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, flex: 1 }}
-              onChangeText={text => this.onChangeText1(text)}
-              value={this.state.imgCode}
-            />
-            <TouchableOpacity onPress={() => { this.getImgCode() }}>
-              <Image
-                source={{
-                  uri: this.state.imgCodeUrl
-                }}
-                style={{ width: 120, height: 40, resizeMode: 'stretch', }}
+          <View style={{ marginTop: 20 }}>
+            <Text>图形验证码</Text>
+            <View style={styles.textImage}>
+              <TextInput
+                placeholder="请输入图像验证码"
+                style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, flex: 1 }}
+                onChangeText={text => this.onChangeText1(text)}
+                value={this.state.imgCode}
               />
-            </TouchableOpacity>
+              <TouchableOpacity onPress={() => { this.getImgCode() }}>
+                <Image
+                  source={{
+                    uri: this.state.imgCodeUrl
+                  }}
+                  style={{ width: 120, height: 40, resizeMode: 'stretch', }}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-        <View style={{ marginTop: 20 }}>
-          <Text>{this.isPhone() ? '原手机号码' : '邮箱'}({this.isPhone() ? userData.phone : userData.email})</Text>
-          <View style={styles.textImage}>
-            <TextInput
-              placeholder="请输入短信验证码"
-              style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, flex: 1 }}
-              onChangeText={text => this.onChangeText2(text)}
-              value={this.state.oldPhoneCaptcha}
-            />
-            <Button
-              disabled={this.state.sendding && this.state.status === 1}
-              style={this.state.sendding && this.state.status === 1 ? { height: 40, backgroundColor: '#dddddd' } : { height: 40, backgroundColor: '#f39032' }}
-              onPress={() => { this.getSmsCode(1) }}
-            >
-              <Text style={{ color: '#fff' }}>{this.state.sendding && this.state.status === 1 ? `${this.state.interval} S 重新获取` : "获取验证码"}</Text>
-            </Button>
+          <View style={{ marginTop: 20 }}>
+            <Text>{this.isPhone() ? '原手机号码' : '邮箱'}({this.isPhone() ? userData.phone : userData.email})</Text>
+            <View style={styles.textImage}>
+              <TextInput
+                placeholder="请输入短信验证码"
+                style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, flex: 1 }}
+                onChangeText={text => this.onChangeText2(text)}
+                value={this.state.oldPhoneCaptcha}
+              />
+              <Button
+                disabled={this.state.sendding && this.state.status === 1}
+                style={this.state.sendding && this.state.status === 1 ? { height: 40, backgroundColor: '#dddddd' } : { height: 40, backgroundColor: '#f39032' }}
+                onPress={() => { this.getSmsCode(1) }}
+              >
+                <Text style={{ color: '#fff' }}>{this.state.sendding && this.state.status === 1 ? `${this.state.interval} S 重新获取` : "获取验证码"}</Text>
+              </Button>
+            </View>
           </View>
-        </View>
-        <View style={{ marginTop: 20 }}>
-          <Text>新手机号码</Text>
-          <View style={styles.textImage}>
-            <Button
-              style={{ height: 40 }}
-              onPress={() => { this.setState({ visible: true }) }}
-            >
-              <Text >+{this.state.areaCode}</Text>
-            </Button>
-            <TextInput
-              placeholder="请输入新手机号码"
-              style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, flex: 1 }}
-              onChangeText={text => this.onChangeText3(text)}
-              value={this.state.phone}
-            />
+          <View style={{ marginTop: 20 }}>
+            <Text>新手机号码</Text>
+            <View style={styles.textImage}>
+              <Button
+                style={{ height: 40 }}
+                onPress={() => { this.setState({ visible: true }) }}
+              >
+                <Text >+{this.state.areaCode}</Text>
+              </Button>
+              <TextInput
+                placeholder="请输入新手机号码"
+                style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, flex: 1 }}
+                onChangeText={text => this.onChangeText3(text)}
+                value={this.state.phone}
+              />
+            </View>
+
+          </View>
+          <View style={{ marginTop: 20 }}>
+            <Text>验证码</Text>
+            <View style={styles.textImage}>
+              <TextInput
+                placeholder="请输入短信验证码"
+                style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, flex: 1 }}
+                onChangeText={text => this.onChangeText4(text)}
+                value={this.state.newPhoneCaptcha}
+              />
+              <Button
+                disabled={this.state.sendding && this.state.status === 2}
+                style={this.state.sendding && this.state.status === 2 ? { height: 40, backgroundColor: '#dddddd' } : { height: 40, backgroundColor: '#f39032' }}
+                onPress={() => { this.getSmsCode(2) }}
+              >
+                <Text style={{ color: '#fff' }}>{this.state.sendding && this.state.status === 2 ? `${this.state.interval} S 重新获取` : "获取验证码"}</Text>
+              </Button>
+            </View>
           </View>
 
-        </View>
-        <View style={{ marginTop: 20 }}>
-          <Text>验证码</Text>
-          <View style={styles.textImage}>
-            <TextInput
-              placeholder="请输入短信验证码"
-              style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, flex: 1 }}
-              onChangeText={text => this.onChangeText4(text)}
-              value={this.state.newPhoneCaptcha}
-            />
-            <Button
-              disabled={this.state.sendding && this.state.status === 2}
-              style={this.state.sendding && this.state.status === 2 ? { height: 40, backgroundColor: '#dddddd' } : { height: 40, backgroundColor: '#f39032' }}
-              onPress={() => { this.getSmsCode(2) }}
-            >
-              <Text style={{ color: '#fff' }}>{this.state.sendding && this.state.status === 2 ? `${this.state.interval} S 重新获取` : "获取验证码"}</Text>
-            </Button>
+          <View style={{ paddingHorizontal: 20, marginTop: 50 }}>
+            <Button onPress={() => { this.submit() }} style={{ backgroundColor: '#f39032', borderRadius: 30 }}><Text style={{ color: '#fff' }}>确认</Text></Button>
           </View>
+          <Text style={{ textAlign: 'center', marginTop: 10 }}>修改手机号24小时不可提现</Text>
         </View>
-
-        <View style={{ paddingHorizontal: 20, marginTop: 50 }}>
-          <Button onPress={() => { this.submit() }} style={{ backgroundColor: '#f39032', borderRadius: 30 }}><Text style={{ color: '#fff' }}>确认</Text></Button>
-        </View>
-        <Text style={{ textAlign: 'center', marginTop: 10 }}>修改手机号24小时不可提现</Text>
-      </View>
+      </ScrollView>
     )
   }
 }

@@ -19,6 +19,12 @@ import SecurityLoginPwd from '../pages/mine/securityCenter/components/securityLo
 import securityMobileModify from '../pages/mine/securityCenter/components/securityMobileModify'
 // 修改绑定邮箱
 import securityEmailPwd from '../pages/mine/securityCenter/components/securityEmailPwd'
+// 修改资金密码
+import securityTransPwd from '../pages/mine/securityCenter/components/securityTransPwd'
+// 谷歌验证
+import googleBind from '../pages/mine/securityCenter/components/googleBind'
+// 修改谷歌验证
+import googleModify from '../pages/mine/securityCenter/components/googleModify'
 // 原生js跳转功能
 import NavigationService from '../utils/NavigationService'
 export default function Navigation() {
@@ -104,6 +110,30 @@ export default function Navigation() {
                         title: '修改/绑定邮箱',
                     }}
                     component={securityEmailPwd}
+                />
+                <Stack.Screen
+                    name="securityTransPwd"
+                    options={{
+                        headerTitleAlign: 'center',
+                        title: '修改/绑定资金密码',
+                    }}
+                    component={securityTransPwd}
+                />
+                <Stack.Screen
+                    name="googleBind"
+                    options={{
+                        headerTitleAlign: 'center',
+                        title: '谷歌验证',
+                    }}
+                    component={googleBind}
+                />
+                <Stack.Screen
+                    name="googleModify"
+                    options={{
+                        headerTitleAlign: 'center',
+                        title: '修改谷歌验证',
+                    }}
+                    component={googleModify}
                 />
             </Stack.Navigator>
         </NavigationContainer>

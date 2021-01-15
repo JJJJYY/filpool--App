@@ -12,7 +12,7 @@ import {
 import { serviceURL } from "../../../../config";
 import { authSendApi, modifyPasswordApi } from "../../../../request/api/userInfoApi";
 
-export default class SecurityLoginPwd extends React.Component {
+export default class SecurityTransPwd extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -30,7 +30,7 @@ export default class SecurityLoginPwd extends React.Component {
   }
 
   componentDidMount() {
-    console.log('securityLoginPwd')
+    console.log('securityTransPwd')
     this.getImgCode()
     store.load({
       key: 'userState'
@@ -153,19 +153,9 @@ export default class SecurityLoginPwd extends React.Component {
       <ScrollView>
         <View style={styles.securityLoginPwdCentent}>
           <View style={{ marginTop: 20 }}>
-            <Text>当前登录密码</Text>
+            <Text>新资金密码</Text>
             <TextInput
-              placeholder="请输入当前登录密码"
-              style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, marginTop: 10 }}
-              secureTextEntry={true}
-              onChangeText={text => this.onChangeText(text)}
-              value={this.state.currPwd}
-            />
-          </View>
-          <View style={{ marginTop: 20 }}>
-            <Text>新登录密码</Text>
-            <TextInput
-              placeholder="请输入登录密码"
+              placeholder="请输入资金密码"
               style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, marginTop: 10 }}
               secureTextEntry={true}
               onChangeText={text => this.onChangeText1(text)}
@@ -175,7 +165,7 @@ export default class SecurityLoginPwd extends React.Component {
           <View style={{ marginTop: 20 }}>
             <Text>确认密码</Text>
             <TextInput
-              placeholder="请再次输入登录密码"
+              placeholder="请再次输入资金密码"
               style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, marginTop: 10 }}
               secureTextEntry={true}
               onChangeText={text => this.onChangeText2(text)}
@@ -183,7 +173,7 @@ export default class SecurityLoginPwd extends React.Component {
             />
           </View>
           <View style={{ marginTop: 20 }}>
-            <Text>图形验证码</Text>
+            <Text>手机号码</Text>
             <View style={styles.textImage}>
               <TextInput
                 placeholder="请输入图像验证码"
@@ -218,6 +208,17 @@ export default class SecurityLoginPwd extends React.Component {
                 <Text style={{ color: '#fff' }}>{this.state.sendding ? `${this.state.interval} S 重新获取` : "获取验证码"}</Text>
               </Button>
             </View>
+          </View>
+
+          <View style={{ marginTop: 20 }}>
+            <Text>谷歌验证码</Text>
+            <TextInput
+              placeholder="请输入当前登录密码"
+              style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, marginTop: 10 }}
+              secureTextEntry={true}
+              onChangeText={text => this.onChangeText(text)}
+              value={this.state.currPwd}
+            />
           </View>
           <View style={{ paddingHorizontal: 20, marginTop: 50 }}>
             <Button onPress={() => { this.submit() }} style={{ backgroundColor: '#f39032', borderRadius: 30 }}><Text style={{ color: '#fff' }}>确认</Text></Button>
