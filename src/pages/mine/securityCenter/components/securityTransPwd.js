@@ -10,7 +10,7 @@ import {
   Modal,
 } from '@ant-design/react-native';
 import { serviceURL } from "../../../../config";
-import { authSendApi, modifyPasswordApi } from "../../../../request/api/userInfoApi";
+import { authSendApi, modifyPayPwdApi } from "../../../../request/api/userInfoApi";
 
 export default class SecurityTransPwd extends React.Component {
   constructor() {
@@ -18,10 +18,10 @@ export default class SecurityTransPwd extends React.Component {
     this.state = {
       userData: {},
       imgCodeUrl: '',
-      currPwd: null,
-      newPwd: null,
-      newPwd2: null,
-      smsCode: null,
+      gaCaptcha: null,
+      password: null,
+      password2: null,
+      phoneCaptcha: null,
       interval: 60,
       sendding: false,
       imgCode: "",
@@ -93,17 +93,17 @@ export default class SecurityTransPwd extends React.Component {
   // 输入事件
   onChangeText(text) {
     this.setState({
-      currPwd: text
+      gaCaptcha: text
     })
   }
   onChangeText1(text) {
     this.setState({
-      newPwd: text
+      password: text
     })
   }
   onChangeText2(text) {
     this.setState({
-      newPwd2: text
+      password2: text
     })
   }
   onChangeText3(text) {
@@ -113,32 +113,24 @@ export default class SecurityTransPwd extends React.Component {
   }
   onChangeText4(text) {
     this.setState({
-      smsCode: text
+      phoneCaptcha: text
     })
   }
 
   // 确认
   submit() {
-    if (!this.state.newPwd) {
-      Toast.info("请输入新密码");
-      return;
-    }
-    if (this.state.newPwd !== this.state.newPwd2) {
+    if (this.state.password !== this.state.password2) {
       Toast.info("两次输入的新密码不一致");
       return;
     }
-    if (!this.state.smsCode) {
-      Toast.info("请输入验证码");
-      return;
-    }
     const postData = {
-      oldPassword: md5(this.state.currPwd),
-      password: md5(this.state.newPwd),
-      code: this.state.smsCode,
+      payPwd: md5(this.state.password),
+      gaCaptcha: this.state.gaCaptcha,
+      code: this.state.phoneCaptcha,
     }
-    modifyPasswordApi(postData).then(res => {
+    modifyPayPwdApi(postData).then(res => {
       if (res.ret === 200) {
-        Toast.info('密码修改成功,请重新登录')
+        Toast.info('修改成功,请重新登录')
         this.props.navigation.navigate('login')
         store.remove({
           key: 'userState',
@@ -159,7 +151,7 @@ export default class SecurityTransPwd extends React.Component {
               style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, marginTop: 10 }}
               secureTextEntry={true}
               onChangeText={text => this.onChangeText1(text)}
-              value={this.state.newPwd}
+              value={this.state.password}
             />
           </View>
           <View style={{ marginTop: 20 }}>
@@ -169,11 +161,11 @@ export default class SecurityTransPwd extends React.Component {
               style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, marginTop: 10 }}
               secureTextEntry={true}
               onChangeText={text => this.onChangeText2(text)}
-              value={this.state.newPwd2}
+              value={this.state.password2}
             />
           </View>
           <View style={{ marginTop: 20 }}>
-            <Text>手机号码</Text>
+            <Text>图形验证码</Text>
             <View style={styles.textImage}>
               <TextInput
                 placeholder="请输入图像验证码"
@@ -192,10 +184,10 @@ export default class SecurityTransPwd extends React.Component {
             </View>
           </View>
           <View style={{ marginTop: 20 }}>
-            <Text>短信验证码</Text>
+            <Text>{this.isPhone() ? '手机号码' : '原邮箱'}({this.isPhone() ? userData.phone : userData.email})</Text>
             <View style={styles.textImage}>
               <TextInput
-                placeholder="请输入短信验证码"
+                placeholder="请输入验证码"
                 style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, flex: 1 }}
                 onChangeText={text => this.onChangeText4(text)}
                 value={this.state.smsCode}
@@ -213,17 +205,17 @@ export default class SecurityTransPwd extends React.Component {
           <View style={{ marginTop: 20 }}>
             <Text>谷歌验证码</Text>
             <TextInput
-              placeholder="请输入当前登录密码"
+              placeholder="请输入谷歌验证码"
               style={{ height: 40, borderColor: '#dddddd', borderWidth: 1, marginTop: 10 }}
               secureTextEntry={true}
               onChangeText={text => this.onChangeText(text)}
-              value={this.state.currPwd}
+              value={this.state.gaCaptcha}
             />
           </View>
           <View style={{ paddingHorizontal: 20, marginTop: 50 }}>
             <Button onPress={() => { this.submit() }} style={{ backgroundColor: '#f39032', borderRadius: 30 }}><Text style={{ color: '#fff' }}>确认</Text></Button>
           </View>
-          <Text style={{ textAlign: 'center', marginTop: 10 }}>修改登录密码24小时不可提现</Text>
+          <Text style={{ textAlign: 'center', marginTop: 10 }}>修改资金密码24小时内不可提现</Text>
         </View>
       </ScrollView>
     )

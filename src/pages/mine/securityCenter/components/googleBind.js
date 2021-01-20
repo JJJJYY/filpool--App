@@ -35,21 +35,22 @@ export default class GoogleBind extends React.Component {
         stepIndex: this.state.stepIndex + 1
       })
     } else {
-      console.log('kaiqi ')
       this.bind()
     }
   }
 
   bind() {
+    console.log(this)
     const postData = {
       captcha: this.state.gaCaptcha,
     };
     bindGaApi(postData).then((res) => {
-      console.log(res)
       if (res.ret === 200) {
         Toast.info('绑定成功');
-        // let text = this.actionType === "modify" ? "修改成功" : "绑定成功";
-        // Toast(text);
+        this.props.navigation.navigate('login')
+        store.remove({
+          key: 'userState',
+        });
       }
     });
   }
