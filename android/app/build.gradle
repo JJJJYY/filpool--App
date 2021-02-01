@@ -78,10 +78,10 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-     entryFile: "index.js",
-	bundleInDebug: true,
-	bundleInBeta: true,
-	bundleInRelease: true,
+    //  entryFile: "index.js",
+	// bundleInDebug: true,
+	// bundleInBeta: true,
+	// bundleInRelease: true,
     enableHermes: false,  // clean and rebuild if changing
 ]
 
