@@ -158,7 +158,7 @@ class Profile extends React.Component {
 
                 extra="我的邀请码：FCD5F7"
                 arrow="horizontal"
-                onPress={() => { }}>
+                onPress={() => { this.props.navigation.navigate('invite') }}>
                 <Text style={{ lineHeight: 50 }}>邀请好友</Text>
               </Item>
               <Item

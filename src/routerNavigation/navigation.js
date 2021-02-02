@@ -25,6 +25,8 @@ import securityTransPwd from '../pages/mine/securityCenter/components/securityTr
 import googleBind from '../pages/mine/securityCenter/components/googleBind'
 // 修改谷歌验证
 import googleModify from '../pages/mine/securityCenter/components/googleModify'
+// 修改谷歌验证
+import Invite from '../pages/mine/Invite/Invite'
 // 原生js跳转功能
 import NavigationService from '../utils/NavigationService'
 export default function Navigation() {
@@ -134,6 +136,14 @@ export default function Navigation() {
                         title: '修改谷歌验证',
                     }}
                     component={googleModify}
+                />
+                <Stack.Screen
+                    name="invite"
+                    options={{
+                        headerTitleAlign: 'center',
+                        title: '邀请好友',
+                    }}
+                    component={Invite}
                 />
             </Stack.Navigator>
         </NavigationContainer>
