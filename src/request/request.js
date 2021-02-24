@@ -6,8 +6,6 @@ import {
     Toast
 } from '@ant-design/react-native';
 import store from '../store'
-import NavigationService from '../utils/NavigationService'
-
 const getFetch = url => new Promise(async (resolve, reject) => {
 
     let cookie = null

@@ -32,7 +32,7 @@ export default function Home({ navigation }) {
         }, [])
     );
 
-    return <Profile />;
+    return <Profile navigation={navigation} />;
 }
 class Profile extends React.Component {
 
@@ -66,6 +66,8 @@ class Profile extends React.Component {
     }
 
     componentDidMount() {
+
+        console.log(this.props)
         // console.log('home ', store)
         // store.load({
         //     key: 'userState',

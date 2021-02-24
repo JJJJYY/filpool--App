@@ -25,8 +25,10 @@ import securityTransPwd from '../pages/mine/securityCenter/components/securityTr
 import googleBind from '../pages/mine/securityCenter/components/googleBind'
 // 修改谷歌验证
 import googleModify from '../pages/mine/securityCenter/components/googleModify'
-// 修改谷歌验证
+// 邀请好友
 import Invite from '../pages/mine/Invite/Invite'
+// 邀请好友奖励
+import InviteReward from '../pages/mine/Invite/InviteReward'
 // 原生js跳转功能
 import NavigationService from '../utils/NavigationService'
 export default function Navigation() {
@@ -144,6 +146,14 @@ export default function Navigation() {
                         title: '邀请好友',
                     }}
                     component={Invite}
+                />
+                <Stack.Screen
+                    name="InviteReward"
+                    options={{
+                        headerTitleAlign: 'center',
+                        title: '我的奖励',
+                    }}
+                    component={InviteReward}
                 />
             </Stack.Navigator>
         </NavigationContainer>
