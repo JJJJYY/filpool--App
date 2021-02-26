@@ -57,6 +57,9 @@ class Profile extends React.Component {
       <ScrollView>
         <View>
           <View style={styles.mineHeader}>
+            <Text style={styles.mineText}>
+              <Text style={{ fontSize: 18, fontWeight: "bold", }}>个人中心</Text>
+            </Text>
             <View style={styles.headerUser}>
               <Image
                 style={{
@@ -204,11 +207,17 @@ class Profile extends React.Component {
 
 const styles = StyleSheet.create({
   mineHeader: {
-    height: 110,
+    height: 160,
     backgroundColor: '#f0ac25FF',
     borderBottomRightRadius: 30,
     borderBottomLeftRadius: 30,
     marginBottom: -30
+  },
+  mineText: {
+    textAlign: 'center',
+    marginTop: 20,
+    fontFamily: "System",
+    color: '#fff'
   },
   headerUser: {
     marginTop: 20,

@@ -142,7 +142,7 @@ export default class Actual extends React.Component {
       )
     } else {
       return (
-        <View style={styles.actualCentent}>
+        <ScrollView style={styles.actualCentent}>
           <View style={styles.actualTextTitle}>
             <Text style={styles.actualCententTitle}>实名认证</Text>
             {
@@ -196,7 +196,7 @@ export default class Actual extends React.Component {
           <Button onPress={() => { this.submit() }} style={styles.getData}>提交审核</Button>
           {console.log(this.state.visible)}
           <AreaSelect areaSelectVisible={this.state.visible} selectItem={this.selectItem}></AreaSelect>
-        </View>
+        </ScrollView>
       )
     }
   }

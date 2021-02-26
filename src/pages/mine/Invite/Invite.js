@@ -93,6 +93,7 @@ export default class Invite extends React.Component {
                 source={require('../../../assets/img/invite/invitation_icon_3(1).png')} />
             </View>
             <View style={{ marginTop: 10 }}>
+              {/* showNum = true // 展示数字 */}
               <Progress num={90}></Progress>
             </View>
             <View style={styles.progressContent1}>
